@@ -1,3 +1,5 @@
+const WEEKEND_POSITION = require("./globalVars.json").WEEKEND_POSITION;
+
 /* Return errors message in an array */
 const formatErrors = (responseDatas, cb) => {
   const validationErrors = responseDatas.validationErrors;
@@ -42,20 +44,36 @@ const calendar = {
 
     // Construct array
     let monthArray = [];
+    let arrayIndex = 0;
     // Days before current month
     for (let i = 0; i < firstDayMonthIndex; i++) {
       monthArray.push({
         day: nbrDaysInMonthBefore - firstDayMonthIndex + i + 1,
+        monthIndex: monthIndex,
         currentMonth: false,
+        weekend: WEEKEND_POSITION.includes(arrayIndex),
       });
+      arrayIndex++;
     }
     // days of the current month
     for (let i = 0; i < nbrDaysInMonth; i++) {
-      monthArray.push({ day: i + 1, currentMonth: true });
+      monthArray.push({
+        day: i + 1,
+        monthIndex: monthIndex,
+        currentMonth: true,
+        weekend: WEEKEND_POSITION.includes(arrayIndex),
+      });
+      arrayIndex++;
     }
     // Days after current month
     for (let i = 0; i < trailingDays; i++) {
-      monthArray.push({ day: i + 1, currentMonth: false });
+      monthArray.push({
+        day: i + 1,
+        monthIndex: monthIndex,
+        currentMonth: false,
+        weekend: WEEKEND_POSITION.includes(arrayIndex),
+      });
+      arrayIndex++;
     }
     return monthArray;
   },

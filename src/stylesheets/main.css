@@ -61,6 +61,12 @@ table {
   width: 90%;
   background: palevioletred;
 }
+.Calendar .otherMonth {
+  background: cornflowerblue;
+}
+.Calendar .weekend {
+  background: antiquewhite;
+}
 .Calendar td {
   width: 14.2857142857%;
   height: 15.8333333333vh;
