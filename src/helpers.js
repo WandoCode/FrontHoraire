@@ -59,6 +59,32 @@ const calendar = {
     }
     return monthArray;
   },
+  // Return the next month
+  nextMonth: (year, monthIndex) => {
+    let newMonthIndex = monthIndex + 1;
+    let newYear = year;
+    if (newMonthIndex >= 12) {
+      newMonthIndex = 0;
+      newYear = year + 1;
+    }
+    return { newYear, newMonthIndex };
+  },
+  // Return the last month
+  lastMonth: (year, monthIndex) => {
+    let newMonthIndex = monthIndex - 1;
+    let newYear = year;
+    if (newMonthIndex <= -1) {
+      newMonthIndex = 11;
+      newYear = year - 1;
+    }
+    return { newYear, newMonthIndex };
+  },
 };
 
-export { formatErrors, calendar };
+// Return a String representing a date
+const formatDateMonth = (year, monthIndex) => {
+  let month = monthIndex + 1;
+  return `${year}-${month}`;
+};
+
+export { formatErrors, calendar, formatDateMonth };

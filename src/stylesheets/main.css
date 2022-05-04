@@ -51,11 +51,15 @@ table {
 }
 
 .Calendar {
-  width: 90%;
+  width: 100%;
   background: darkolivegreen;
 }
+.Calendar .dateChoiceContainer {
+  display: flex;
+}
 .Calendar .calendarTable {
-  width: 100%;
+  width: 90%;
+  background: palevioletred;
 }
 .Calendar td {
   width: 14.2857142857%;

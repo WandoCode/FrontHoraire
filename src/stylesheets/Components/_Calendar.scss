@@ -1,11 +1,16 @@
 @use "sass:math";
 
 .Calendar {
-  width: 90%;
+  width: 100%;
   background: darkolivegreen;
 
+  .dateChoiceContainer {
+    display: flex;
+  }
+
   .calendarTable {
-    width: 100%;
+    width: 90%;
+    background: palevioletred;
   }
 
   td {
