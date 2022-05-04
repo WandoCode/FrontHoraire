@@ -1,9 +1,3 @@
-function loginUser(username, password) {
-  //TODO: créer une fct qui fait le login de l'utilisateur pour pouvoir l'invoquer dans LoginForm et SignUpForm
-  //TODO: Bien veiller à ce qu'elle ne fasse rien d'autre (les message d'erreurs seront gérés en dehors
-  a;
-}
-
 /* Return errors message in an array */
 const formatErrors = (responseDatas, cb) => {
   const validationErrors = responseDatas.validationErrors;
@@ -22,4 +16,49 @@ const formatErrors = (responseDatas, cb) => {
   return errorsArray;
 };
 
-export { formatErrors, loginUser };
+const calendar = {
+  getNbrDaysInMonth: (year, monthIndex) => {
+    let date = new Date(year, monthIndex + 1, 0);
+    return date.getDate();
+  },
+  // Return the day starting month: 0 = sunday, 6 = saturday
+  getFirstDayMonthIndex: (year, monthIndex) => {
+    let date = new Date(year, monthIndex, 1);
+
+    return (date.getDay() + 6) % 7;
+  },
+
+  // return an array of 42 days for the given monthIndex
+  constructCalendarArray: function (year, monthIndex) {
+    // Current month
+    let nbrDaysInMonth = this.getNbrDaysInMonth(year, monthIndex);
+    let firstDayMonthIndex = this.getFirstDayMonthIndex(year, monthIndex);
+
+    // Month before
+    let nbrDaysInMonthBefore = this.getNbrDaysInMonth(year, monthIndex - 1);
+
+    // Month after
+    let trailingDays = 42 - firstDayMonthIndex - nbrDaysInMonth; //42 days = 6 weeks
+
+    // Construct array
+    let monthArray = [];
+    // Days before current month
+    for (let i = 0; i < firstDayMonthIndex; i++) {
+      monthArray.push({
+        day: nbrDaysInMonthBefore - firstDayMonthIndex + i + 1,
+        currentMonth: false,
+      });
+    }
+    // days of the current month
+    for (let i = 0; i < nbrDaysInMonth; i++) {
+      monthArray.push({ day: i + 1, currentMonth: true });
+    }
+    // Days after current month
+    for (let i = 0; i < trailingDays; i++) {
+      monthArray.push({ day: i + 1, currentMonth: false });
+    }
+    return monthArray;
+  },
+};
+
+export { formatErrors, calendar };

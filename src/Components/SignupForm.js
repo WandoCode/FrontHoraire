@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
-import { formatErrors, loginUser } from "../helpers";
+import { formatErrors } from "../helpers";
 import { AuthContext } from "../AuthContextProvider";
 import { useNavigate } from "react-router-dom";
 const HOST = require("../globalVars.json").HOST;
@@ -17,17 +17,9 @@ function SignupForm(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let rep = await axios.post(`${HOST}/users/add`, { username, password });
+      let rep = await axios.post(`${HOST}/login`, { username, password });
       let datas = rep.data;
-
-      if (!datas.success) {
-        setWarningsArray(datas.message);
-      } else {
-        loginUser(username, password);
-        signIn(datas.user, datas.token, () => {
-          navigate("/home");
-        });
-      }
+      if (rep.data) signIn(datas.user, datas.token, navigate("/home"));
     } catch (e) {
       const errorsArray = formatErrors(e.response.data);
       setWarningsArray(errorsArray);

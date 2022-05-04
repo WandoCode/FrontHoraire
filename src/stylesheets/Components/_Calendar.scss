@@ -1,0 +1,17 @@
+@use "sass:math";
+
+.Calendar {
+  width: 90%;
+  background: darkolivegreen;
+
+  .calendarTable {
+    width: 100%;
+  }
+
+  td {
+    width: math.div(100%, 7);
+    height: math.div(95vh, 6);
+    border: 1px solid black;
+  }
+
+}
