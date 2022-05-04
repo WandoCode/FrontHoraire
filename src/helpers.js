@@ -42,7 +42,7 @@ const calendar = {
     // Month after
     let trailingDays = 42 - firstDayMonthIndex - nbrDaysInMonth; //42 days = 6 weeks
 
-    // Construct array
+    /* Construct array */
     let monthArray = [];
     let arrayIndex = 0;
     // Days before current month
@@ -50,16 +50,18 @@ const calendar = {
       monthArray.push({
         day: nbrDaysInMonthBefore - firstDayMonthIndex + i + 1,
         monthIndex: monthIndex,
+        year: year,
         currentMonth: false,
         weekend: WEEKEND_POSITION.includes(arrayIndex),
       });
       arrayIndex++;
     }
-    // days of the current month
+    //  Current month's days
     for (let i = 0; i < nbrDaysInMonth; i++) {
       monthArray.push({
         day: i + 1,
         monthIndex: monthIndex,
+        year: year,
         currentMonth: true,
         weekend: WEEKEND_POSITION.includes(arrayIndex),
       });
@@ -70,6 +72,7 @@ const calendar = {
       monthArray.push({
         day: i + 1,
         monthIndex: monthIndex,
+        year: year,
         currentMonth: false,
         weekend: WEEKEND_POSITION.includes(arrayIndex),
       });

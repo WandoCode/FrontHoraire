@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { formatErrors } from "../helpers";
 import { AuthContext } from "../AuthContextProvider";
 import { useNavigate } from "react-router-dom";
+
 const HOST = require("../globalVars.json").HOST;
 
 function SignupForm(props) {
@@ -28,7 +29,7 @@ function SignupForm(props) {
 
   // TODO: display errors on screen
   useEffect(() => {
-    if (warningsArray.length > 0) console.log(warningsArray);
+    if (warningsArray.length > 0) console.error(warningsArray);
   }, [warningsArray]);
 
   return (

@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthContextProvider";
 import { formatErrors } from "../helpers";
+
 const axios = require("axios");
 
 const HOST = require("../globalVars.json").HOST;
@@ -28,7 +29,7 @@ function LoginForm() {
 
   // TODO: display errors on screen
   useEffect(() => {
-    if (warningsArray.length > 0) console.log(warningsArray);
+    if (warningsArray.length > 0) console.error(warningsArray);
   }, [warningsArray]);
 
   return (

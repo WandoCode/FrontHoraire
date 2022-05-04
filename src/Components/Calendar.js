@@ -47,6 +47,8 @@ function generateWeeksTable(monthArray) {
           currentMonth={day.currentMonth}
           weekend={day.weekend}
           day={day.day}
+          monthIndex={day.monthIndex}
+          year={day.year}
           key={uniqid()}
         />
       );
