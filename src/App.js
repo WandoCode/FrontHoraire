@@ -12,6 +12,7 @@ import Layout from "./Components/Layout";
 import SignupForm from "./Components/SignupForm";
 import Calendar from "./Components/Calendar";
 import DayDetails from "./Components/DayDetails";
+import ScheduleForm from "./Components/ScheduleForm";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
                 </RequireAuth>
               }
             />
+            <Route path="/create/schedule" element={<ScheduleForm />} />
           </Route>
         </Routes>
       </BrowserRouter>
