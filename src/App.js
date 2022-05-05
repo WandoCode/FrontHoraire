@@ -11,6 +11,7 @@ import Logout from "./Components/Logout";
 import Layout from "./Components/Layout";
 import SignupForm from "./Components/SignupForm";
 import Calendar from "./Components/Calendar";
+import DayDetails from "./Components/DayDetails";
 
 function App() {
   return (
@@ -34,6 +35,14 @@ function App() {
               element={
                 <RequireAuth>
                   <Logout />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/day/details/:year/:monthIndex/:day"
+              element={
+                <RequireAuth>
+                  <DayDetails />
                 </RequireAuth>
               }
             />

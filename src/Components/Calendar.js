@@ -56,6 +56,7 @@ function generateWeeksTable(monthArray) {
     weeks.push(week);
   }
 
+  // TODO: Wrapping could be avoided with React.Fragment???
   // Wrap weeks in a table
   let weeksTable = weeks.map((week) => {
     return <tr key={uniqid()}>{week}</tr>;
