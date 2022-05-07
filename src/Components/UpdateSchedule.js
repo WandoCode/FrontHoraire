@@ -12,18 +12,8 @@ function UpdateSchedule(props) {
   useEffect(() => {
     const getScheduleDetails = async () => {
       let rep = await axios.get(`${HOST}/schedule/get/${selectValue}`);
-      let rep2 = await axios.get(
-        `${HOST}/users/get/worktime/${rep.data.datas.workTime}`
-      );
-      const WT = rep2.data.datas; // TODO: envoyer les infos de WT depuis la route /schedule/get/${selectValue} coté
-      // serveur
-      const schedule = {
-        ...rep.data.datas,
-        startDate: getTimeString(WT.startDate),
-        endDate: getTimeString(WT.endDate),
-        breakTime: WT.breakTime,
-      };
-      setScheduleDetails(schedule);
+
+      setScheduleDetails(rep.data.datas);
     };
 
     if (selectValue !== "") {
@@ -51,16 +41,5 @@ function UpdateSchedule(props) {
     </div>
   );
 }
-
-const getTimeString = (stringDate) => {
-  const date = new Date(stringDate);
-  let hour = `${date.getHours()}`;
-  let min = `${date.getMinutes()}`;
-
-  hour = hour.length !== 2 ? "0" + hour : hour;
-  min = min.length !== 2 ? "0" + min : min;
-
-  return `${hour}:${min}`;
-};
 
 export default UpdateSchedule;

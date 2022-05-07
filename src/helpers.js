@@ -1,3 +1,6 @@
+import axios from "axios";
+
+const HOST = require("./globalVars.json").HOST;
 const WEEKEND_POSITION = require("./globalVars.json").WEEKEND_POSITION;
 
 /* Return errors message in an array */
@@ -108,4 +111,43 @@ const formatDateMonth = (year, monthIndex) => {
   return `${year}-${month}`;
 };
 
-export { formatErrors, calendar, formatDateMonth };
+const getScheduleDetailsFromCalendar = async (
+  userCalendar,
+  year,
+  monthIndex,
+  day
+) => {
+  let scheduleId = scheduleIdFromCalendar(userCalendar, year, monthIndex, day);
+  if (scheduleId) {
+    let rep = await axios.get(`${HOST}/schedule/get/${scheduleId}`);
+    return rep.data.datas;
+  }
+};
+
+const scheduleIdFromCalendar = (userCalendar, year, monthIndex, day) => {
+  return (
+    ((((userCalendar || {})[year] || {})[monthIndex] || {})[day] || {})[
+      "schedule"
+    ] || null
+  );
+};
+
+const getTimeString = (stringDate) => {
+  const date = new Date(stringDate);
+  let hour = `${date.getHours()}`;
+  let min = `${date.getMinutes()}`;
+
+  hour = hour.length !== 2 ? "0" + hour : hour;
+  min = min.length !== 2 ? "0" + min : min;
+
+  return `${hour}:${min}`;
+};
+
+export {
+  formatErrors,
+  calendar,
+  formatDateMonth,
+  getScheduleDetailsFromCalendar,
+  scheduleIdFromCalendar,
+  getTimeString,
+};

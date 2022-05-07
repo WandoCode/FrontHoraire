@@ -3,7 +3,7 @@ import { calendar, formatDateMonth } from "../helpers";
 import Day from "./Day";
 import uniqid from "uniqid";
 
-function Calendar(props) {
+function Calendar() {
   const [year, setYear] = useState(new Date().getFullYear());
   const [monthIndex, setMonthIndex] = useState(new Date().getMonth());
 
@@ -11,13 +11,13 @@ function Calendar(props) {
 
   let weeksTable = generateWeeksTable(monthArray);
 
-  function handleLastMonthBtn(e) {
+  function handleLastMonthBtn() {
     const { newYear, newMonthIndex } = calendar.lastMonth(year, monthIndex);
     setYear(newYear);
     setMonthIndex(newMonthIndex);
   }
 
-  function handleNextMonthBtn(e) {
+  function handleNextMonthBtn() {
     const { newYear, newMonthIndex } = calendar.nextMonth(year, monthIndex);
     setYear(newYear);
     setMonthIndex(newMonthIndex);
@@ -58,11 +58,9 @@ function generateWeeksTable(monthArray) {
 
   // TODO: Wrapping could be avoided with React.Fragment???
   // Wrap weeks in a table
-  let weeksTable = weeks.map((week) => {
+  return weeks.map((week) => {
     return <tr key={uniqid()}>{week}</tr>;
   });
-
-  return weeksTable;
 }
 
 export default Calendar;

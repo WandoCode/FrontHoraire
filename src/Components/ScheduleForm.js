@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../AuthContextProvider";
+import { getTimeString } from "../helpers";
 
 const HOST = require("../globalVars.json").HOST;
 
@@ -18,8 +19,8 @@ function ScheduleForm(props) {
   /* Change input value if they are changed after render by props */
   useEffect(() => {
     if (propsName) setName(propsName);
-    if (propsStartDate) setStartDate(propsStartDate);
-    if (propsEndDate) setEndDate(propsEndDate);
+    if (propsStartDate) setStartDate(getTimeString(propsStartDate));
+    if (propsEndDate) setEndDate(getTimeString(propsEndDate));
     if (propsBreakTime) setBreakTime(propsBreakTime);
   }, [props]);
 
