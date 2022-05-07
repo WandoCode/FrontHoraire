@@ -5,34 +5,67 @@ import { AuthContext } from "../AuthContextProvider";
 const HOST = require("../globalVars.json").HOST;
 
 function ScheduleForm(props) {
+  const propsName = props.name;
+  const propsStartDate = props.startDate;
+  const propsEndDate = props.endDate;
+  const propsBreakTime = props.breakTime;
   const { token } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [breakTime, setBreakTime] = useState(0);
 
+  /* Change input value if they are changed after render by props */
+  useEffect(() => {
+    if (propsName) setName(propsName);
+    if (propsStartDate) setStartDate(propsStartDate);
+    if (propsEndDate) setEndDate(propsEndDate);
+    if (propsBreakTime) setBreakTime(propsBreakTime);
+  }, [props]);
+
   async function handleSubmit(e) {
     e.preventDefault();
-
     if (!validInputs()) return; // TODO: need to be implemented
 
-    let rep = await axios.post(
-      `${HOST}/schedule/add`,
-      {
-        name,
-        startDate: formatDate(startDate),
-        endDate: formatDate(endDate),
-        breakTime: breakTime,
-      },
-      {
-        headers: { Authorization: `Bearer ${token}` },
+    if (props.update) {
+      let rep = await axios.put(
+        `${HOST}/schedule/put/${props.scheduleId}`,
+        {
+          name,
+          startDate: formatDate(startDate),
+          endDate: formatDate(endDate),
+          breakTime: breakTime,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log(rep.data);
+      // TODO: Show a warning on screen to let user know schedule has not been created and why
+      // TODO: A refactoriser avec la warningArray de SignupForm???
+      if (!rep.data.success) {
+        //showWarning()
+        console.log("error");
       }
-    );
-
-    // TODO: Show a warning on screen to let user know schedule has not been created and why
-    // TODO: A refactoriser avec la warningArray de SignupForm???
-    if (!rep.data.data.success) {
-      //showWarning()
+    } else {
+      let rep = await axios.post(
+        `${HOST}/schedule/add`,
+        {
+          name,
+          startDate: formatDate(startDate),
+          endDate: formatDate(endDate),
+          breakTime: breakTime,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      // TODO: Show a warning on screen to let user know schedule has not been created and why
+      // TODO: A factoriser avec la warningArray de SignupForm???
+      if (!rep.data.data.success) {
+        //showWarning()
+        console.log("error");
+      }
     }
     return;
   }
