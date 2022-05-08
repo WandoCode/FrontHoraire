@@ -7,7 +7,7 @@ const HOST = require("../globalVars.json").HOST;
 function ScheduleSelect(props) {
   const [schedulesArray, setSchedulesArray] = useState([]);
   const [options, setOptions] = useState([]);
-  const [selectInput, setSelectInput] = useState("default");
+  const [selectInput, setSelectInput] = useState(props.defVal || "default");
   const loadSchedules = async () => {
     let rep = await axios.get(`${HOST}/schedule/all`);
     setSchedulesArray(rep.data.datas);

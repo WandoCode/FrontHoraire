@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { createPathCal } from "./helpers";
 
 let AuthContext = React.createContext({ user: null, token: null });
 
@@ -34,8 +35,26 @@ function AuthContextProvider({ children }) {
     if (cb) cb();
   };
 
+  const updateCalendar = (scheduleId, year, monthIndex, day, cb) => {
+    let copyCalendar = user.calendrier;
+
+    let newCalendar = createPathCal(copyCalendar, { year, monthIndex, day });
+    newCalendar[year][monthIndex][day]["schedule"] = scheduleId;
+
+    const newUser = {
+      ...user,
+      calendrier: newCalendar,
+    };
+    console.log(newUser);
+    setUser(newUser);
+    setCookie("user", newUser);
+
+    if (cb) cb();
+  };
   return (
-    <AuthContext.Provider value={{ user, token, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ user, token, signIn, signOut, updateCalendar }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -50,6 +69,7 @@ function RequireAuth({ children }) {
   // User found: return children react node without change.
   return children;
 }
+
 // Check if tu current user is an admin otherwise redirect
 function RequireAdmin({ children }) {
   let { user } = useContext(AuthContext);

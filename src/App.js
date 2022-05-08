@@ -12,7 +12,6 @@ import Layout from "./Components/Layout";
 import SignupForm from "./Components/SignupForm";
 import Calendar from "./Components/Calendar";
 import DayDetails from "./Components/DayDetails";
-import ScheduleForm from "./Components/ScheduleForm";
 import ManageSchedule from "./Components/ManageSchedule";
 
 function App() {

@@ -50,10 +50,12 @@ const calendar = {
     let arrayIndex = 0;
     // Days before current month
     for (let i = 0; i < firstDayMonthIndex; i++) {
+      let { newYear, newMonthIndex } = this.lastMonth(year, monthIndex);
+
       monthArray.push({
         day: nbrDaysInMonthBefore - firstDayMonthIndex + i + 1,
-        monthIndex: monthIndex,
-        year: year,
+        monthIndex: newMonthIndex,
+        year: newYear,
         currentMonth: false,
         weekend: WEEKEND_POSITION.includes(arrayIndex),
       });
@@ -72,10 +74,11 @@ const calendar = {
     }
     // Days after current month
     for (let i = 0; i < trailingDays; i++) {
+      let { newYear, newMonthIndex } = this.nextMonth(year, monthIndex);
       monthArray.push({
         day: i + 1,
-        monthIndex: monthIndex,
-        year: year,
+        monthIndex: newMonthIndex,
+        year: newYear,
         currentMonth: false,
         weekend: WEEKEND_POSITION.includes(arrayIndex),
       });
@@ -143,6 +146,31 @@ const getTimeString = (stringDate) => {
   return `${hour}:${min}`;
 };
 
+const getDateString = (yearInt, monthIndex, dayInt) => {
+  let date = new Date(yearInt, monthIndex, dayInt);
+  const dateString = date.toISOString();
+
+  return dateString.slice(0, 10);
+};
+
+const createPathCal = (calendrier, { day, monthIndex, year }) => {
+  // Check if the year, month and day are already in the calendrier
+  // Create path if necessary
+  if (!calendrier[year]) {
+    calendrier[year] = {};
+  }
+
+  if (!calendrier[year][monthIndex]) {
+    calendrier[year][monthIndex] = {};
+  }
+
+  if (!calendrier[year][monthIndex][day]) {
+    calendrier[year][monthIndex][day] = {};
+  }
+
+  return calendrier;
+};
+
 export {
   formatErrors,
   calendar,
@@ -150,4 +178,6 @@ export {
   getScheduleDetailsFromCalendar,
   scheduleIdFromCalendar,
   getTimeString,
+  getDateString,
+  createPathCal,
 };
