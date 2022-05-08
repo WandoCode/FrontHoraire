@@ -35,7 +35,7 @@ function AuthContextProvider({ children }) {
     if (cb) cb();
   };
 
-  const updateCalendar = (scheduleId, year, monthIndex, day, cb) => {
+  const updateSchedules = (scheduleId, year, monthIndex, day, cb) => {
     let copyCalendar = user.calendrier;
 
     let newCalendar = createPathCal(copyCalendar, { year, monthIndex, day });
@@ -45,15 +45,31 @@ function AuthContextProvider({ children }) {
       ...user,
       calendrier: newCalendar,
     };
-    console.log(newUser);
     setUser(newUser);
     setCookie("user", newUser);
 
     if (cb) cb();
   };
+
+  const updateWorktime = (worktimeId, year, monthIndex, day, cb) => {
+    let copyCalendar = user.calendrier;
+
+    let newCalendar = createPathCal(copyCalendar, { year, monthIndex, day });
+    newCalendar[year][monthIndex][day]["workTime"] = worktimeId;
+
+    const newUser = {
+      ...user,
+      calendrier: newCalendar,
+    };
+    setUser(newUser);
+    setCookie("user", newUser);
+
+    if (cb) cb();
+  };
+
   return (
     <AuthContext.Provider
-      value={{ user, token, signIn, signOut, updateCalendar }}
+      value={{ user, token, signIn, signOut, updateSchedules, updateWorktime }}
     >
       {children}
     </AuthContext.Provider>

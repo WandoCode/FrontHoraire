@@ -2,7 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../AuthContextProvider";
-import { getScheduleDetailsFromCalendar, getTimeString } from "../helpers";
+import {
+  getScheduleDetailsFromCalendar,
+  getTimeString,
+  getWorkTimeDetailsFromCalendar,
+} from "../helpers";
 
 function Day(props) {
   const year = props.year;
@@ -11,6 +15,7 @@ function Day(props) {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const [scheduleDatas, setScheduleDatas] = useState();
+  const [worktimeDatas, setWorktimeDatas] = useState();
   const classname = constructClass(props.currentMonth, props.weekend);
 
   useEffect(() => {
@@ -23,13 +28,21 @@ function Day(props) {
           day
         );
         setScheduleDatas(schedule);
+
+        let worktime = await getWorkTimeDetailsFromCalendar(
+          user.calendrier,
+          year,
+          monthIndex,
+          day
+        );
+        setWorktimeDatas(worktime);
       } catch (e) {
         console.error(e);
       }
     };
 
     getDayDatas();
-  }, [year, monthIndex, user]);
+  }, [year, monthIndex, day, user]);
 
   function handleClick() {
     navigate(`/day/details/${props.year}/${props.monthIndex}/${props.day}`);
@@ -38,16 +51,28 @@ function Day(props) {
   return (
     <td className={classname} onClick={handleClick}>
       {props.day}
-      <br />
-      {scheduleDatas ? (
-        <>
-          <div>{getTimeString(scheduleDatas.startDate)}</div>
-          <div>{getTimeString(scheduleDatas.endDate)}</div>
-          <div>({scheduleDatas.breakTime})</div>
-        </>
-      ) : (
-        <></>
-      )}
+      <div>
+        {scheduleDatas ? (
+          <>
+            <div>{getTimeString(scheduleDatas.startDate)}</div>
+            <div>{getTimeString(scheduleDatas.endDate)}</div>
+            <div>({scheduleDatas.breakTime})</div>
+          </>
+        ) : (
+          <></>
+        )}
+      </div>
+      <div>
+        {worktimeDatas ? (
+          <>
+            <div>{getTimeString(worktimeDatas.startDate)}</div>
+            <div>{getTimeString(worktimeDatas.endDate)}</div>
+            <div>({worktimeDatas.breakTime})</div>
+          </>
+        ) : (
+          <></>
+        )}
+      </div>
     </td>
   );
 }

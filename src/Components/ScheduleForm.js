@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../AuthContextProvider";
 import { getTimeString } from "../helpers";
+import { formatDateWithTime } from "../helpers";
 
 const HOST = require("../globalVars.json").HOST;
 
@@ -33,8 +34,8 @@ function ScheduleForm(props) {
         `${HOST}/schedule/put/${props.scheduleId}`,
         {
           name,
-          startDate: formatDate(startDate),
-          endDate: formatDate(endDate),
+          startDate: formatDateWithTime(startDate),
+          endDate: formatDateWithTime(endDate),
           breakTime: breakTime,
         },
         {
@@ -53,8 +54,8 @@ function ScheduleForm(props) {
         `${HOST}/schedule/add`,
         {
           name,
-          startDate: formatDate(startDate),
-          endDate: formatDate(endDate),
+          startDate: formatDateWithTime(startDate),
+          endDate: formatDateWithTime(endDate),
           breakTime: breakTime,
         },
         {
@@ -119,9 +120,5 @@ function ScheduleForm(props) {
 const validInputs = () => {
   return true;
 };
-
-function formatDate(time) {
-  return `2022-01-01T${time}`;
-}
 
 export default ScheduleForm;

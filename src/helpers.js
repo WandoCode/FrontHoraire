@@ -126,7 +126,6 @@ const getScheduleDetailsFromCalendar = async (
     return rep.data.datas;
   }
 };
-
 const scheduleIdFromCalendar = (userCalendar, year, monthIndex, day) => {
   return (
     ((((userCalendar || {})[year] || {})[monthIndex] || {})[day] || {})[
@@ -135,6 +134,26 @@ const scheduleIdFromCalendar = (userCalendar, year, monthIndex, day) => {
   );
 };
 
+const getWorkTimeDetailsFromCalendar = async (
+  userCalendar,
+  year,
+  monthIndex,
+  day
+) => {
+  let worktimeId = worktimeIdFromCalendar(userCalendar, year, monthIndex, day);
+  if (worktimeId) {
+    let rep = await axios.get(`${HOST}/users/get/worktime/${worktimeId}`);
+    return rep.data.datas;
+  }
+};
+
+const worktimeIdFromCalendar = (userCalendar, year, monthIndex, day) => {
+  return (
+    ((((userCalendar || {})[year] || {})[monthIndex] || {})[day] || {})[
+      "workTime"
+    ] || null
+  );
+};
 const getTimeString = (stringDate) => {
   const date = new Date(stringDate);
   let hour = `${date.getHours()}`;
@@ -171,6 +190,10 @@ const createPathCal = (calendrier, { day, monthIndex, year }) => {
   return calendrier;
 };
 
+function formatDateWithTime(time) {
+  return `2022-01-01T${time}`;
+}
+
 export {
   formatErrors,
   calendar,
@@ -180,4 +203,6 @@ export {
   getTimeString,
   getDateString,
   createPathCal,
+  getWorkTimeDetailsFromCalendar,
+  formatDateWithTime,
 };
