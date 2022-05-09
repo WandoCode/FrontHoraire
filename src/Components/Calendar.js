@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { calendar, getMonthText } from "../helpers";
+import { calendar } from "../helpers";
 import Day from "./Day";
 import uniqid from "uniqid";
-import nextImg from "../static/img/next.svg";
-import beforeImg from "../static/img/before.svg";
+
+import MonthChoice from "./MonthChoice";
 
 function Calendar() {
   const [year, setYear] = useState(new Date().getFullYear());
@@ -13,26 +13,18 @@ function Calendar() {
 
   let weeksTable = generateWeeksTable(monthArray);
 
-  function handleLastMonthBtn() {
-    const { newYear, newMonthIndex } = calendar.lastMonth(year, monthIndex);
+  function changeMonth({ newYear, newMonthIndex }) {
     setYear(newYear);
     setMonthIndex(newMonthIndex);
   }
 
-  function handleNextMonthBtn() {
-    const { newYear, newMonthIndex } = calendar.nextMonth(year, monthIndex);
-    setYear(newYear);
-    setMonthIndex(newMonthIndex);
-  }
-
-  // TODO créer un composant pour le choix des mois
   return (
     <div className="Calendar">
-      <div className={"dateChoiceContainer"}>
-        <img src={beforeImg} alt="before arrow" onClick={handleLastMonthBtn} />
-        <p>{getMonthText(year, monthIndex)}</p>
-        <img src={nextImg} alt="next arrow" onClick={handleNextMonthBtn} />
-      </div>
+      <MonthChoice
+        year={year}
+        monthIndex={monthIndex}
+        changeMonth={changeMonth}
+      />
       <table className="calendarTable">
         <tbody>{weeksTable}</tbody>
       </table>
