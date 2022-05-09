@@ -13,7 +13,7 @@ import axios from "axios";
 
 const HOST = require("../globalVars.json").HOST;
 
-function DayDetails(props) {
+function DayDetails() {
   const { user, token, updateSchedules, updateWorktime } =
     useContext(AuthContext);
   const [scheduleDatas, setScheduleDatas] = useState();

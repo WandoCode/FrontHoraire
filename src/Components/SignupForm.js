@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const HOST = require("../globalVars.json").HOST;
 
-function SignupForm(props) {
+function SignupForm() {
   const { signIn } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

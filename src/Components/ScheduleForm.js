@@ -69,7 +69,6 @@ function ScheduleForm(props) {
         console.log("error");
       }
     }
-    return;
   }
 
   return (

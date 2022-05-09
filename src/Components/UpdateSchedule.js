@@ -5,7 +5,7 @@ import ScheduleForm from "./ScheduleForm";
 
 const HOST = require("../globalVars.json").HOST;
 
-function UpdateSchedule(props) {
+function UpdateSchedule() {
   const [selectValue, setSelectValue] = useState("");
   const [scheduleDetails, setScheduleDetails] = useState([]);
 

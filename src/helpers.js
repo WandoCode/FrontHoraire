@@ -1,10 +1,12 @@
 import axios from "axios";
+import VAR from "./globalVars.json";
 
-const HOST = require("./globalVars.json").HOST;
-const WEEKEND_POSITION = require("./globalVars.json").WEEKEND_POSITION;
+const HOST = VAR.HOST;
+const WEEKEND_POSITION = VAR.WEEKEND_POSITION;
+const MONTH = VAR.MONTH;
 
 /* Return errors message in an array */
-const formatErrors = (responseDatas, cb) => {
+const formatErrors = (responseDatas) => {
   const validationErrors = responseDatas.validationErrors;
   let errorsArray = [];
 
@@ -109,6 +111,7 @@ const calendar = {
 };
 
 // Return a String representing a date
+// TODO Remove if not used
 const formatDateMonth = (year, monthIndex) => {
   let month = monthIndex + 1;
   return `${year}-${month}`;
@@ -194,6 +197,11 @@ function formatDateWithTime(time) {
   return `2022-01-01T${time}`;
 }
 
+const getMonthText = (year, monthIndex) => {
+  const monthString = MONTH[monthIndex];
+  return `${year} - ${monthString}`;
+};
+
 export {
   formatErrors,
   calendar,
@@ -205,4 +213,5 @@ export {
   createPathCal,
   getWorkTimeDetailsFromCalendar,
   formatDateWithTime,
+  getMonthText,
 };

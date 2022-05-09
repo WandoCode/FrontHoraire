@@ -1,9 +1,7 @@
-import { useState, useEffect } from "react";
 import ScheduleForm from "./ScheduleForm";
-import ScheduleSelect from "./ScheduleSelect";
 import UpdateSchedule from "./UpdateSchedule";
 
-function ManageSchedule(props) {
+function ManageSchedule() {
   return (
     <div className="ManageSchedule">
       <ScheduleForm />
