@@ -13,22 +13,18 @@ import {
   getTimeString,
   getDateStringLocal,
 } from "../helpers/date";
+import ScheduleChoice from "./ScheduleChoice";
 
 const HOST = require("../globalVars.json").HOST;
 // TODO Add a button to go back to calendar AT THE SAME MONTH THAN THE MONTH OF THIS PAGE
 // TODO 2 : Add a btn to go 1 day before or one day after without going back to calendar
 function DayDetails() {
-  const { user, token, updateSchedules, updateWorktime } =
-    useContext(AuthContext);
-  const [scheduleDatas, setScheduleDatas] = useState();
+  const { user, token, updateWorktime } = useContext(AuthContext);
   const [worktimeDatas, setWorktimeDatas] = useState();
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [breakTime, setBreakTime] = useState(0);
   const { year, monthIndex, day } = useParams();
-  const [selectValue, setSelectValue] = useState(
-    scheduleIdFromCalendar(user.calendrier, year, monthIndex, day)
-  );
   const dateString = getDateStringISO(year, monthIndex, day);
 
   useEffect(() => {
@@ -52,48 +48,6 @@ function DayDetails() {
       setBreakTime(worktimeDatas.breakTime);
     }
   }, [worktimeDatas]);
-
-  useEffect(() => {
-    const getScheduleDatas = async () => {
-      try {
-        let rep = await axios.get(`${HOST}/schedule/get/${selectValue}`);
-        setScheduleDatas(rep.data.datas);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-
-    if (selectValue) {
-      getScheduleDatas();
-    }
-  }, [selectValue]);
-
-  const getValue = (val) => {
-    setSelectValue(val);
-  };
-
-  const handleSubmitSchedule = async (e) => {
-    e.preventDefault();
-    if (!selectValue) return;
-    try {
-      const postDatas = {
-        scheduleId: selectValue,
-        date: dateString,
-      };
-
-      await axios.post(
-        `${HOST}/users/${user._id}/calendar/add/schedule`,
-        postDatas,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      updateSchedules(selectValue, year, monthIndex, day);
-    } catch (e) {
-      console.error(e);
-    }
-  };
 
   const handleSubmitWorktime = async (e) => {
     e.preventDefault();
@@ -127,25 +81,7 @@ function DayDetails() {
   return (
     <div className="DayDetails">
       <h2>{getDateStringLocal(year, monthIndex, day)}</h2>
-      <div>
-        {scheduleDatas && (
-          <>
-            <h2>Schedule</h2>
-            <p>Name: {scheduleDatas.name}</p>
-            <p>start: {getTimeString(scheduleDatas.startDate)}</p>
-            <p>end: {getTimeString(scheduleDatas.endDate)}</p>
-            <p>Break: {scheduleDatas.breakTime} min</p>
-          </>
-        )}
-      </div>
-      <form onSubmit={handleSubmitSchedule}>
-        <ScheduleSelect
-          labelText={"Choose a schedule"}
-          getValue={getValue}
-          defVal={selectValue}
-        />
-        <button type="submit">Change</button>
-      </form>
+      <ScheduleChoice year={year} monthIndex={monthIndex} day={day} />
       <form onSubmit={handleSubmitWorktime}>
         <label htmlFor="startDate">Start</label>
         <input

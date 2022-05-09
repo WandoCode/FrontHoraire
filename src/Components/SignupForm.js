@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
-import { formatErrors } from "../helpers";
+import { formatErrors } from "../helpers/helpers";
 import { AuthContext } from "../AuthContextProvider";
 import { useNavigate } from "react-router-dom";
 
