@@ -41,12 +41,11 @@ function ScheduleForm(props) {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log(rep.data);
       // TODO: Show a warning on screen to let user know schedule has not been created and why
       // TODO: A refactoriser avec la warningArray de SignupForm???
       if (!rep.data.success) {
         //showWarning()
-        console.log("error");
+        console.error(rep.data.message);
       }
     } else {
       let rep = await axios.post(
@@ -63,9 +62,9 @@ function ScheduleForm(props) {
       );
       // TODO: Show a warning on screen to let user know schedule has not been created and why
       // TODO: A factoriser avec la warningArray de SignupForm???
-      if (!rep.data.data.success) {
+      if (!rep.data.success) {
         //showWarning()
-        console.log("error");
+        console.error(rep.data.message);
       }
     }
   }

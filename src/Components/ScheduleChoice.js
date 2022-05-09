@@ -26,7 +26,7 @@ function ScheduleChoice(props) {
     const getScheduleDatas = async () => {
       try {
         let rep = await axios.get(`${HOST}/schedule/get/${selectValue}`);
-        setScheduleDatas(rep.data.datas);
+        setScheduleDatas(rep.data.data);
       } catch (e) {
         console.error(e);
       }

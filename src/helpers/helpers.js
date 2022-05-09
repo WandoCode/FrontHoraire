@@ -1,9 +1,9 @@
 /* Return errors message in an array */
 const formatErrors = (responseDatas) => {
-  const validationErrors = responseDatas.validationErrors;
   let errorsArray = [];
 
   // Handle validation errors
+  const validationErrors = responseDatas.validationErrors;
   if (validationErrors) {
     errorsArray = validationErrors.errors.map((err) => {
       return err.msg;

@@ -12,7 +12,7 @@ const getScheduleDetailsFromCalendar = async (
   let scheduleId = scheduleIdFromCalendar(userCalendar, year, monthIndex, day);
   if (scheduleId) {
     let rep = await axios.get(`${HOST}/schedule/get/${scheduleId}`);
-    return rep.data.datas;
+    return rep.data.data;
   }
 };
 const scheduleIdFromCalendar = (userCalendar, year, monthIndex, day) => {
@@ -31,7 +31,7 @@ const getWorkTimeDetailsFromCalendar = async (
   let worktimeId = worktimeIdFromCalendar(userCalendar, year, monthIndex, day);
   if (worktimeId) {
     let rep = await axios.get(`${HOST}/users/get/worktime/${worktimeId}`);
-    return rep.data.datas;
+    return rep.data.data;
   }
 };
 const worktimeIdFromCalendar = (userCalendar, year, monthIndex, day) => {

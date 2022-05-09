@@ -13,7 +13,7 @@ function UpdateSchedule() {
     const getScheduleDetails = async () => {
       let rep = await axios.get(`${HOST}/schedule/get/${selectValue}`);
 
-      setScheduleDetails(rep.data.datas);
+      setScheduleDetails(rep.data.data);
     };
 
     if (selectValue !== "") {

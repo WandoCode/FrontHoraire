@@ -19,7 +19,7 @@ function LoginForm() {
     try {
       let rep = await axios.post(`${HOST}/login`, { username, password });
       let datas = rep.data;
-      if (rep.data) signIn(datas.user, datas.token, navigate("/home"));
+      if (rep.data) signIn(datas.user, datas.token, navigate("/"));
     } catch (e) {
       // TODO: Add a useEffect to display warning validation if it exists
       const errorsArray = formatErrors(e.response.data);
