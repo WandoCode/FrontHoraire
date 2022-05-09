@@ -18,9 +18,10 @@ function SignupForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      await axios.post(`${HOST}/users/add`, { username, password });
       let rep = await axios.post(`${HOST}/login`, { username, password });
       let datas = rep.data;
-      if (rep.data) signIn(datas.user, datas.token, navigate("/home"));
+      if (rep.data) signIn(datas.user, datas.token, navigate("/"));
     } catch (e) {
       const errorsArray = formatErrors(e.response.data);
       setWarningsArray(errorsArray);
@@ -52,7 +53,7 @@ function SignupForm() {
       />
       <label htmlFor="password-confirmation">Confirm password</label>
       <input
-        type="text"
+        type="password"
         name="password-confirmation"
         id="password-confirmation"
         onChange={(e) => setConfPassword(e.target.value)}

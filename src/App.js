@@ -6,7 +6,6 @@ import {
 import "./stylesheets/main.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginForm from "./Components/LoginForm";
-import Home from "./Components/Home";
 import Logout from "./Components/Logout";
 import Layout from "./Components/Layout";
 import SignupForm from "./Components/SignupForm";
@@ -28,7 +27,6 @@ function App() {
                 </RequireAuth>
               }
             />
-            <Route path="/home" element={<Home />} />
             <Route path="login" element={<LoginForm />} />
             <Route path="/signup" element={<SignupForm />} />
             <Route
@@ -47,7 +45,14 @@ function App() {
                 </RequireAuth>
               }
             />
-            <Route path="/create/schedule" element={<ManageSchedule />} />
+            <Route
+              path="/create/schedule"
+              element={
+                <RequireAdmin>
+                  <ManageSchedule />
+                </RequireAdmin>
+              }
+            />
           </Route>
         </Routes>
       </BrowserRouter>

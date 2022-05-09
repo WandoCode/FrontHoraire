@@ -19,6 +19,9 @@ const formatErrors = (responseDatas) => {
 const createPathCal = (calendrier, { day, monthIndex, year }) => {
   // Check if the year, month and day are already in the calendrier
   // Create path if necessary
+  if (!calendrier) {
+    calendrier = {};
+  }
   if (!calendrier[year]) {
     calendrier[year] = {};
   }

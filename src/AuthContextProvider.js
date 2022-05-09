@@ -37,7 +37,6 @@ function AuthContextProvider({ children }) {
 
   const updateSchedules = (scheduleId, year, monthIndex, day, cb) => {
     let copyCalendar = user.calendrier;
-
     let newCalendar = createPathCal(copyCalendar, { year, monthIndex, day });
     newCalendar[year][monthIndex][day]["schedule"] = scheduleId;
 
