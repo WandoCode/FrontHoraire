@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { calendar } from "../helpers";
 import Day from "./Day";
 import uniqid from "uniqid";
 
 import MonthChoice from "./MonthChoice";
+import { calendar } from "../helpers/calendar";
 
 function Calendar() {
   const [year, setYear] = useState(new Date().getFullYear());

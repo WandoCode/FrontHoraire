@@ -4,9 +4,9 @@ import { useContext } from "react";
 import { AuthContext } from "../AuthContextProvider";
 import {
   getScheduleDetailsFromCalendar,
-  getTimeString,
   getWorkTimeDetailsFromCalendar,
-} from "../helpers";
+} from "../helpers/dataFetch";
+import { getTimeString } from "../helpers/date";
 
 function Day(props) {
   const year = props.year;

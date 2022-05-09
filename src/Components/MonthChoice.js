@@ -1,6 +1,7 @@
 import beforeImg from "../static/img/before.svg";
 import nextImg from "../static/img/next.svg";
-import { calendar, getMonthText } from "../helpers";
+import { calendar } from "../helpers/calendar";
+import { getMonthText } from "../helpers/date";
 
 function MonthChoice(props) {
   const year = props.year;

@@ -1,18 +1,22 @@
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../AuthContextProvider";
-import {
-  getTimeString,
-  getDateString,
-  scheduleIdFromCalendar,
-  getWorkTimeDetailsFromCalendar,
-  formatDateWithTime,
-} from "../helpers";
 import { useParams } from "react-router-dom";
 import ScheduleSelect from "./ScheduleSelect";
 import axios from "axios";
+import {
+  getWorkTimeDetailsFromCalendar,
+  scheduleIdFromCalendar,
+} from "../helpers/dataFetch";
+import {
+  formatDateWithTime,
+  getDateStringISO,
+  getTimeString,
+  getDateStringLocal,
+} from "../helpers/date";
 
 const HOST = require("../globalVars.json").HOST;
-
+// TODO Add a button to go back to calendar AT THE SAME MONTH THAN THE MONTH OF THIS PAGE
+// TODO 2 : Add a btn to go 1 day before or one day after without going back to calendar
 function DayDetails() {
   const { user, token, updateSchedules, updateWorktime } =
     useContext(AuthContext);
@@ -25,7 +29,7 @@ function DayDetails() {
   const [selectValue, setSelectValue] = useState(
     scheduleIdFromCalendar(user.calendrier, year, monthIndex, day)
   );
-  const dateString = getDateString(year, monthIndex, day);
+  const dateString = getDateStringISO(year, monthIndex, day);
 
   useEffect(() => {
     const getWorktimeDatas = async () => {
@@ -39,7 +43,7 @@ function DayDetails() {
     };
 
     getWorktimeDatas();
-  }, []);
+  }, [user.calendrier, year, monthIndex, day]);
 
   useEffect(() => {
     if (worktimeDatas) {
@@ -122,7 +126,7 @@ function DayDetails() {
   };
   return (
     <div className="DayDetails">
-      <h2>{dateString}</h2>
+      <h2>{getDateStringLocal(year, monthIndex, day)}</h2>
       <div>
         {scheduleDatas && (
           <>

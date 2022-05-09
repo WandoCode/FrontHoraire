@@ -1,8 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../AuthContextProvider";
-import { getTimeString } from "../helpers";
-import { formatDateWithTime } from "../helpers";
+import { formatDateWithTime, getTimeString } from "../helpers/date";
 
 const HOST = require("../globalVars.json").HOST;
 
