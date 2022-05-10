@@ -30,6 +30,7 @@ function WorktimeChoice(props) {
   }, [warningsObj]);
 
   useEffect(() => {
+    // Reset value if date change
     setStartDate("");
     setEndDate("");
     setBreakTime(0);
@@ -79,18 +80,13 @@ function WorktimeChoice(props) {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      // TODO: Uniformiser les '.datas' dans le backend (j'ai des .data et des .datas
       updateWorktime(rep.data.data.id, year, monthIndex, day);
-
-      // TODO: Ce if est-il vrmt utile? (attrapé par le catch non?)
-      if (!rep.data.success) {
-        //showWarning()
-        console.log("error");
-      }
     } catch (e) {
-      console.error(e);
+      const errorObject = formatErrors(e.response.data);
+      setWarningsObj(errorObject);
     }
   };
+
   return (
     <form onSubmit={handleSubmitWorktime} className="WorktimeChoice">
       <label htmlFor="startDate">Start</label>

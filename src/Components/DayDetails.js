@@ -1,9 +1,8 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getDateStringLocal } from "../helpers/date";
 import ScheduleChoice from "./ScheduleChoice";
 import WorktimeChoice from "./WorktimeChoice";
 import { calendar } from "../helpers/calendar";
-import { useState } from "react";
 
 // TODO Add a button to go back to calendar AT THE SAME MONTH THAN THE MONTH OF THIS PAGE
 function DayDetails() {
@@ -13,18 +12,18 @@ function DayDetails() {
 
   const handleNextDay = () => {
     const { newYear, newMonthIndex, newDay } = nextDay(
-      +year,
-      +monthIndex,
-      +day
+      parseInt(year),
+      parseInt(monthIndex),
+      parseInt(day)
     );
     navigate(`/day/details/${newYear}/${newMonthIndex}/${newDay}`);
   };
 
-  const handleLastDay = () => {
-    const { newYear, newMonthIndex, newDay } = lastDay(
-      +year,
-      +monthIndex,
-      +day
+  const handlePrecDay = () => {
+    const { newYear, newMonthIndex, newDay } = precDay(
+      parseInt(year),
+      parseInt(monthIndex),
+      parseInt(day)
     );
     navigate(`/day/details/${newYear}/${newMonthIndex}/${newDay}`);
   };
@@ -34,13 +33,14 @@ function DayDetails() {
       <h2>{getDateStringLocal(year, monthIndex, day)}</h2>
       <ScheduleChoice year={year} monthIndex={monthIndex} day={day} />
       <WorktimeChoice year={year} monthIndex={monthIndex} day={day} />
-      <button onClick={handleLastDay}>Last day</button>
-      <button onClick={handleNextDay}>Next day</button>
+      <button onClick={handlePrecDay}>Avant</button>
+      <button onClick={handleNextDay}>Après</button>
     </div>
   );
 }
 
 const nextDay = (year, monthIndex, day) => {
+  // Return the parsed date of the day after the given date
   const nbrDayInMonth = calendar.getNbrDaysInMonth(year, monthIndex);
 
   let newDay = day + 1;
@@ -58,7 +58,8 @@ const nextDay = (year, monthIndex, day) => {
   return { newYear, newMonthIndex, newDay };
 };
 
-const lastDay = (year, monthIndex, day) => {
+const precDay = (year, monthIndex, day) => {
+  // Return the parsed date of the day before the given date
   let newDay = day - 1;
   let newMonthIndex = monthIndex;
   let newYear = year;

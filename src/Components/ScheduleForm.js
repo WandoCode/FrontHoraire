@@ -42,6 +42,7 @@ function ScheduleForm(props) {
       if (!validInputs()) return; // TODO: need to be implemented
 
       if (props.update) {
+        /* Update values */
         let rep = await axios.put(
           `${HOST}/schedule/put/${props.scheduleId}`,
           {
@@ -55,6 +56,7 @@ function ScheduleForm(props) {
           }
         );
       } else {
+        /* Post new values */
         await axios.post(
           `${HOST}/schedule/add`,
           {

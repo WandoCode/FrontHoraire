@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react";
-import { getDateStringISO, getTimeString } from "../helpers/date";
 import ScheduleSelect from "./ScheduleSelect";
 import axios from "axios";
-import VAR from "../globalVars.json";
-
+import { useState, useEffect } from "react";
+import { getDateStringISO, getTimeString } from "../helpers/date";
 import { useContext } from "react";
 import { AuthContext } from "../AuthContextProvider";
 import { scheduleIdFromCalendar } from "../helpers/dataFetch";
 import { formatErrors } from "../helpers/helpers";
+import VAR from "../globalVars.json";
 
 const HOST = VAR.HOST;
 
@@ -28,6 +27,7 @@ function ScheduleChoice(props) {
   }, [warningsObj]);
 
   useEffect(() => {
+    // Reset values if date change
     setSelectValue(
       scheduleIdFromCalendar(user.calendrier, year, monthIndex, day)
     );
@@ -35,6 +35,7 @@ function ScheduleChoice(props) {
 
   useEffect(() => {
     const getScheduleDatas = async () => {
+      // Load schedule datas
       try {
         let rep = await axios.get(`${HOST}/schedule/get/${selectValue}`);
         setScheduleDatas(rep.data.data);
@@ -47,7 +48,6 @@ function ScheduleChoice(props) {
     if (selectValue) {
       getScheduleDatas();
     } else {
-      // TODO Added to updatewith nextday and lastday btn
       setScheduleDatas();
     }
   }, [selectValue]);
@@ -58,6 +58,7 @@ function ScheduleChoice(props) {
 
   const handleSubmitSchedule = async (e) => {
     e.preventDefault();
+    // Avoid submit if no information in form
     if (!selectValue) return;
     try {
       const postDatas = {

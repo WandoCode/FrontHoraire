@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
 import uniqid from "uniqid";
+import { useState, useEffect } from "react";
 import { formatErrors } from "../helpers/helpers";
 
 const HOST = require("../globalVars.json").HOST;
@@ -13,8 +13,9 @@ function ScheduleSelect(props) {
   const [warningsObj, setWarningsObj] = useState();
 
   useEffect(() => {
+    /* Reset selected value when props.defVal in an upper comp change */
     setSelectInput(defaultVal || "default");
-  });
+  }, [defaultVal]);
 
   // TODO: display errors on screen
   useEffect(() => {

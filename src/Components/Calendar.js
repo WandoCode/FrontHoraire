@@ -9,6 +9,7 @@ function Calendar() {
   const [year, setYear] = useState(new Date().getFullYear());
   const [monthIndex, setMonthIndex] = useState(new Date().getMonth());
 
+  /* Construct Array with date info */
   let monthArray = calendar.constructCalendarArray(year, monthIndex);
 
   let weeksTable = generateWeeksTable(monthArray);
@@ -33,7 +34,7 @@ function Calendar() {
 }
 
 function generateWeeksTable(monthArray) {
-  //Generate weeks
+  //Generate weeks for the month
   let weeks = [];
   for (let i = 0; i < 6; i++) {
     let week = monthArray.slice(i * 7, (i + 1) * 7).map((day) => {

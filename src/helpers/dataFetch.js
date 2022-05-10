@@ -17,6 +17,7 @@ const getScheduleDetailsFromCalendar = async (
 };
 const scheduleIdFromCalendar = (userCalendar, year, monthIndex, day) => {
   return (
+    // Go into userCalendar.year.monthIndex.day safely (even in a nested object is undefined)
     ((((userCalendar || {})[year] || {})[monthIndex] || {})[day] || {})[
       "schedule"
     ] || null
@@ -36,6 +37,7 @@ const getWorkTimeDetailsFromCalendar = async (
 };
 const worktimeIdFromCalendar = (userCalendar, year, monthIndex, day) => {
   return (
+    // Go into userCalendar.year.monthIndex.day safely (even in a nested object is undefined)
     ((((userCalendar || {})[year] || {})[monthIndex] || {})[day] || {})[
       "workTime"
     ] || null

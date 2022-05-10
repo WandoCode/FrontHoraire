@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "../AuthContextProvider";
 import { useNavigate } from "react-router-dom";
 
-function Logout(props) {
+function Logout() {
   const { signOut } = useContext(AuthContext);
   const navigate = useNavigate();
 

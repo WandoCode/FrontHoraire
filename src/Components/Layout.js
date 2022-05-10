@@ -9,6 +9,7 @@ function Layout(props) {
     <div className="Layout">
       <nav>
         {user ? (
+          /* User connected */
           <>
             <Link to={"/"}> Accueil </Link>
             {user.role === "admin" && (
@@ -17,6 +18,7 @@ function Layout(props) {
             <Link to={"/logout"}> Log Out </Link>
           </>
         ) : (
+          /* NO user connected */
           <>
             <Link to={"/login"}> Log In </Link>
             <Link to={"/signup"}> Sign Up</Link>
