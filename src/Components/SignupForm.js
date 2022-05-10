@@ -15,6 +15,11 @@ function SignupForm() {
 
   const navigate = useNavigate();
 
+  // TODO: display errors on screen
+  useEffect(() => {
+    if (warningsArray.length > 0) console.error(warningsArray);
+  }, [warningsArray]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -27,11 +32,6 @@ function SignupForm() {
       setWarningsArray(errorsArray);
     }
   };
-
-  // TODO: display errors on screen
-  useEffect(() => {
-    if (warningsArray.length > 0) console.error(warningsArray);
-  }, [warningsArray]);
 
   return (
     <form className="SignupForm" action="" onSubmit={handleSubmit}>

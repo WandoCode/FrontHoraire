@@ -7,6 +7,7 @@ import VAR from "../globalVars.json";
 import { useContext } from "react";
 import { AuthContext } from "../AuthContextProvider";
 import { scheduleIdFromCalendar } from "../helpers/dataFetch";
+import { formatErrors } from "../helpers/helpers";
 
 const HOST = VAR.HOST;
 
@@ -15,7 +16,7 @@ function ScheduleChoice(props) {
   const monthIndex = props.monthIndex;
   const day = props.day;
   const dateString = getDateStringISO(year, monthIndex, day);
-
+  const [warningsObj, setWarningsObj] = useState();
   const { user, token, updateSchedules } = useContext(AuthContext);
   const [scheduleDatas, setScheduleDatas] = useState();
   const [selectValue, setSelectValue] = useState(
@@ -23,17 +24,31 @@ function ScheduleChoice(props) {
   );
 
   useEffect(() => {
+    if (warningsObj) console.error(warningsObj);
+  }, [warningsObj]);
+
+  useEffect(() => {
+    setSelectValue(
+      scheduleIdFromCalendar(user.calendrier, year, monthIndex, day)
+    );
+  }, [year, monthIndex, day]);
+
+  useEffect(() => {
     const getScheduleDatas = async () => {
       try {
         let rep = await axios.get(`${HOST}/schedule/get/${selectValue}`);
         setScheduleDatas(rep.data.data);
       } catch (e) {
-        console.error(e);
+        const errorObject = formatErrors(e.response.data);
+        setWarningsObj(errorObject);
       }
     };
 
     if (selectValue) {
       getScheduleDatas();
+    } else {
+      // TODO Added to updatewith nextday and lastday btn
+      setScheduleDatas();
     }
   }, [selectValue]);
 
@@ -60,7 +75,8 @@ function ScheduleChoice(props) {
 
       updateSchedules(selectValue, year, monthIndex, day);
     } catch (e) {
-      console.error(e);
+      const errorObject = formatErrors(e.response.data);
+      setWarningsObj(errorObject);
     }
   };
 

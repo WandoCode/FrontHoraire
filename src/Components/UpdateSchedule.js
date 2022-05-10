@@ -2,18 +2,29 @@ import { useState, useEffect } from "react";
 import ScheduleSelect from "./ScheduleSelect";
 import axios from "axios";
 import ScheduleForm from "./ScheduleForm";
+import { formatErrors } from "../helpers/helpers";
 
 const HOST = require("../globalVars.json").HOST;
 
 function UpdateSchedule() {
   const [selectValue, setSelectValue] = useState("");
   const [scheduleDetails, setScheduleDetails] = useState([]);
+  const [warningsObj, setWarningsObj] = useState();
+
+  useEffect(() => {
+    if (warningsObj) console.error(warningsObj);
+  }, [warningsObj]);
 
   useEffect(() => {
     const getScheduleDetails = async () => {
-      let rep = await axios.get(`${HOST}/schedule/get/${selectValue}`);
+      try {
+        let rep = await axios.get(`${HOST}/schedule/get/${selectValue}`);
 
-      setScheduleDetails(rep.data.data);
+        setScheduleDetails(rep.data.data);
+      } catch (e) {
+        const errorObject = formatErrors(e.response.data);
+        setWarningsObj(errorObject);
+      }
     };
 
     if (selectValue !== "") {
@@ -29,7 +40,11 @@ function UpdateSchedule() {
 
   return (
     <div className="UpdateSchedule">
-      <ScheduleSelect labelText={"Choose a schedule"} getValue={getValue} />
+      <ScheduleSelect
+        labelText={"Choose a schedule"}
+        getValue={getValue}
+        defVal={selectValue}
+      />
       <ScheduleForm
         name={scheduleDetails.name}
         startDate={scheduleDetails.startDate}

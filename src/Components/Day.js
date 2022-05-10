@@ -7,6 +7,7 @@ import {
   getWorkTimeDetailsFromCalendar,
 } from "../helpers/dataFetch";
 import { getTimeString } from "../helpers/date";
+import { formatErrors } from "../helpers/helpers";
 
 function Day(props) {
   const year = props.year;
@@ -16,7 +17,13 @@ function Day(props) {
   const { user } = useContext(AuthContext);
   const [scheduleDatas, setScheduleDatas] = useState();
   const [worktimeDatas, setWorktimeDatas] = useState();
+  const [warningsObj, setWarningsObj] = useState();
+
   const classname = constructClass(props.currentMonth, props.weekend);
+
+  useEffect(() => {
+    if (warningsObj) console.error(warningsObj);
+  }, [warningsObj]);
 
   useEffect(() => {
     const getDayDatas = async () => {
@@ -37,7 +44,8 @@ function Day(props) {
         );
         setWorktimeDatas(worktime);
       } catch (e) {
-        console.error(e);
+        const errorObject = formatErrors(e.response.data);
+        setWarningsObj(errorObject);
       }
     };
 

@@ -11,8 +11,13 @@ function LoginForm() {
   const { signIn } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [warningsArray, setWarningsArray] = useState([]);
+  const [warningsObj, setWarningsObj] = useState();
   const navigate = useNavigate();
+
+  // TODO: display errors on screen
+  useEffect(() => {
+    if (warningsObj) console.error(warningsObj);
+  }, [warningsObj]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,17 +26,10 @@ function LoginForm() {
       let datas = rep.data;
       if (rep.data) signIn(datas.user, datas.token, navigate("/"));
     } catch (e) {
-      // TODO: Add a useEffect to display warning validation if it exists
-      const errorsArray = formatErrors(e.response.data);
-      setWarningsArray(errorsArray);
+      const errorObject = formatErrors(e.response.data);
+      setWarningsObj(errorObject);
     }
   };
-
-  // TODO: display errors on screen
-  useEffect(() => {
-    if (warningsArray.length > 0) console.error(warningsArray);
-  }, [warningsArray]);
-
   return (
     <form className="login-form" action="" onSubmit={handleSubmit}>
       <label htmlFor="username">Username</label>

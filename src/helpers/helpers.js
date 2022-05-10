@@ -1,19 +1,22 @@
 /* Return errors message in an array */
 const formatErrors = (responseDatas) => {
-  let errorsArray = [];
+  let errorsObject = {};
 
   // Handle validation errors
   const validationErrors = responseDatas.validationErrors;
   if (validationErrors) {
-    errorsArray = validationErrors.errors.map((err) => {
-      return err.msg;
-    });
+    const errors = validationErrors.errors;
+    for (const error of errors) {
+      errorsObject[error.param]
+        ? errorsObject[error.param].push(error.msg)
+        : (errorsObject[error.param] = [error.msg]);
+    }
   }
   // Handle other errors
   else {
-    errorsArray.push(responseDatas.message);
+    errorsObject["all"] = responseDatas.message;
   }
-  return errorsArray;
+  return errorsObject;
 };
 
 const createPathCal = (calendrier, { day, monthIndex, year }) => {

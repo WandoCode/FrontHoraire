@@ -1,20 +1,38 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import uniqid from "uniqid";
+import { formatErrors } from "../helpers/helpers";
 
 const HOST = require("../globalVars.json").HOST;
 
 function ScheduleSelect(props) {
+  const defaultVal = props.defVal;
   const [schedulesArray, setSchedulesArray] = useState([]);
   const [options, setOptions] = useState([]);
-  const [selectInput, setSelectInput] = useState(props.defVal || "default");
-
-  const loadSchedules = async () => {
-    let rep = await axios.get(`${HOST}/schedule/all`);
-    setSchedulesArray(rep.data.data);
-  };
+  const [selectInput, setSelectInput] = useState(defaultVal || "default");
+  const [warningsObj, setWarningsObj] = useState();
 
   useEffect(() => {
+    setSelectInput(defaultVal || "default");
+    console.log(1);
+  });
+
+  // TODO: display errors on screen
+  useEffect(() => {
+    if (warningsObj) console.error(warningsObj);
+  }, [warningsObj]);
+
+  useEffect(() => {
+    const loadSchedules = async () => {
+      try {
+        let rep = await axios.get(`${HOST}/schedule/all`);
+        setSchedulesArray(rep.data.data);
+      } catch (e) {
+        const errorObject = formatErrors(e.response.data);
+        setWarningsObj(errorObject);
+      }
+    };
+
     loadSchedules();
   }, []);
 

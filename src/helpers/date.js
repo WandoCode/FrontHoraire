@@ -2,12 +2,6 @@ import VAR from "../globalVars.json";
 
 const MONTH = VAR.MONTH;
 
-// Return a String representing a date
-// TODO Remove if not used
-const formatDateMonth = (year, monthIndex) => {
-  let month = monthIndex + 1;
-  return `${year}-${month}`;
-};
 const getTimeString = (stringDate) => {
   const date = new Date(stringDate);
   let hour = `${date.getHours()}`;
@@ -43,6 +37,5 @@ export {
   formatDateWithTime,
   getDateStringISO,
   getTimeString,
-  formatDateMonth,
   getDateStringLocal,
 };

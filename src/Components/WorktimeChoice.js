@@ -9,6 +9,7 @@ import axios from "axios";
 import VAR from "../globalVars.json";
 import { useContext } from "react";
 import { AuthContext } from "../AuthContextProvider";
+import { formatErrors } from "../helpers/helpers";
 
 const HOST = VAR.HOST;
 
@@ -22,16 +23,26 @@ function WorktimeChoice(props) {
   const [endDate, setEndDate] = useState("");
   const [breakTime, setBreakTime] = useState(0);
   const dateString = getDateStringISO(year, monthIndex, day);
+  const [warningsObj, setWarningsObj] = useState();
+
+  useEffect(() => {
+    if (warningsObj) console.error(warningsObj);
+  }, [warningsObj]);
 
   useEffect(() => {
     const getWorktimeDatas = async () => {
-      let worktime = await getWorkTimeDetailsFromCalendar(
-        user.calendrier,
-        year,
-        monthIndex,
-        day
-      );
-      setWorktimeDatas(worktime);
+      try {
+        let worktime = await getWorkTimeDetailsFromCalendar(
+          user.calendrier,
+          year,
+          monthIndex,
+          day
+        );
+        setWorktimeDatas(worktime);
+      } catch (e) {
+        const errorObject = formatErrors(e.response.data);
+        setWarningsObj(errorObject);
+      }
     };
 
     getWorktimeDatas();

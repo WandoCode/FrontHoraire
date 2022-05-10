@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../AuthContextProvider";
 import { formatDateWithTime, getTimeString } from "../helpers/date";
+import { formatErrors } from "../helpers/helpers";
 
 const HOST = require("../globalVars.json").HOST;
 
@@ -15,7 +16,12 @@ function ScheduleForm(props) {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [breakTime, setBreakTime] = useState(0);
+  const [warningsObj, setWarningsObj] = useState();
 
+  //TODO: avoid submit if schedule to update has not changed
+  //TODO: idem for new schedule with invalid datas (and for update)
+  //TODO Ajouter la possibilité de faire un horaire sur 2 jours (ajouter une case qui l'indique et qui fait que la
+  // fct getTimeString ajouter 24h à la date qu'elle utilise par defaut
   /* Change input value if they are changed after render by props */
   useEffect(() => {
     if (propsName) setName(propsName);
@@ -24,48 +30,47 @@ function ScheduleForm(props) {
     if (propsBreakTime) setBreakTime(propsBreakTime);
   }, [props]);
 
+  // TODO: display errors on screen
+  useEffect(() => {
+    if (warningsObj) console.error(warningsObj);
+  }, [warningsObj]);
+
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!validInputs()) return; // TODO: need to be implemented
 
-    if (props.update) {
-      let rep = await axios.put(
-        `${HOST}/schedule/put/${props.scheduleId}`,
-        {
-          name,
-          startDate: formatDateWithTime(startDate),
-          endDate: formatDateWithTime(endDate),
-          breakTime: breakTime,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      // TODO: Show a warning on screen to let user know schedule has not been created and why
-      // TODO: A refactoriser avec la warningArray de SignupForm???
-      if (!rep.data.success) {
-        //showWarning()
-        console.error(rep.data.message);
+    try {
+      if (!validInputs()) return; // TODO: need to be implemented
+
+      if (props.update) {
+        let rep = await axios.put(
+          `${HOST}/schedule/put/${props.scheduleId}`,
+          {
+            name,
+            startDate: formatDateWithTime(startDate),
+            endDate: formatDateWithTime(endDate),
+            breakTime: breakTime,
+          },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+      } else {
+        await axios.post(
+          `${HOST}/schedule/add`,
+          {
+            name,
+            startDate: formatDateWithTime(startDate),
+            endDate: formatDateWithTime(endDate),
+            breakTime: breakTime,
+          },
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
       }
-    } else {
-      let rep = await axios.post(
-        `${HOST}/schedule/add`,
-        {
-          name,
-          startDate: formatDateWithTime(startDate),
-          endDate: formatDateWithTime(endDate),
-          breakTime: breakTime,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      // TODO: Show a warning on screen to let user know schedule has not been created and why
-      // TODO: A factoriser avec la warningArray de SignupForm???
-      if (!rep.data.success) {
-        //showWarning()
-        console.error(rep.data.message);
-      }
+    } catch (e) {
+      const errorObject = formatErrors(e.response.data);
+      setWarningsObj(errorObject);
     }
   }
 
