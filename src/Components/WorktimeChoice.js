@@ -30,6 +30,12 @@ function WorktimeChoice(props) {
   }, [warningsObj]);
 
   useEffect(() => {
+    setStartDate("");
+    setEndDate("");
+    setBreakTime(0);
+  }, [year, monthIndex, day]);
+
+  useEffect(() => {
     const getWorktimeDatas = async () => {
       try {
         let worktime = await getWorkTimeDetailsFromCalendar(

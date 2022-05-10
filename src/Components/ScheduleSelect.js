@@ -14,7 +14,6 @@ function ScheduleSelect(props) {
 
   useEffect(() => {
     setSelectInput(defaultVal || "default");
-    console.log(1);
   });
 
   // TODO: display errors on screen
