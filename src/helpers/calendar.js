@@ -43,12 +43,15 @@ const calendar = {
       arrayIndex++;
     }
     //  Current month's days
+    const now = new Date(Date.now());
+    console.log(now);
     for (let i = 0; i < nbrDaysInMonth; i++) {
       monthArray.push({
         day: i + 1,
         monthIndex: monthIndex,
         year: year,
         currentMonth: true,
+        today: now.getDate() === i + 1,
         weekend: WEEKEND_POSITION.includes(arrayIndex),
       });
       arrayIndex++;

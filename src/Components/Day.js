@@ -19,7 +19,11 @@ function Day(props) {
   const [worktimeDatas, setWorktimeDatas] = useState();
   const [warningsObj, setWarningsObj] = useState();
 
-  const classname = constructClass(props.currentMonth, props.weekend);
+  const classname = constructClass(
+    props.currentMonth,
+    props.weekend,
+    props.today
+  );
 
   useEffect(() => {
     if (warningsObj) console.error(warningsObj);
@@ -60,38 +64,43 @@ function Day(props) {
   return (
     <td className={classname} onClick={handleClick}>
       {props.day}
-      <div>
-        {scheduleDatas ? (
-          <>
-            <div>{getTimeString(scheduleDatas.startDate)}</div>
-            <div>{getTimeString(scheduleDatas.endDate)}</div>
-            <div>({scheduleDatas.breakTime})</div>
-          </>
-        ) : (
-          <></>
-        )}
-      </div>
-      <div>
-        {worktimeDatas ? (
-          <>
-            <div>{getTimeString(worktimeDatas.startDate)}</div>
-            <div>{getTimeString(worktimeDatas.endDate)}</div>
-            <div>({worktimeDatas.breakTime})</div>
-          </>
-        ) : (
-          <></>
-        )}
-      </div>
+
+      {scheduleDatas ? (
+        <div>
+          <div>{getTimeString(scheduleDatas.startDate)}</div>
+          <div>{getTimeString(scheduleDatas.endDate)}</div>
+          <div>({scheduleDatas.breakTime})</div>
+        </div>
+      ) : (
+        <></>
+      )}
+
+      {worktimeDatas ? (
+        <div>
+          <div>{getTimeString(worktimeDatas.startDate)}</div>
+          <div>{getTimeString(worktimeDatas.endDate)}</div>
+          <div>({worktimeDatas.breakTime})</div>
+        </div>
+      ) : (
+        <></>
+      )}
     </td>
   );
 }
 
-const constructClass = (currentMonth, weekend) => {
+const constructClass = (currentMonth, weekend, today) => {
   let classname = "Day";
-  currentMonth ? (classname += " currentMonth") : (classname += " otherMonth");
+  console.log(today);
   if (weekend) {
     classname += " weekend";
   }
+  if (today) {
+    classname += " today";
+    return classname;
+  }
+
+  currentMonth ? (classname += " currentMonth") : (classname += " otherMonth");
+
   return classname;
 };
 

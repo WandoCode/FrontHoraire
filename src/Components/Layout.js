@@ -1,5 +1,5 @@
-import { useState, useEffect, useContext } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { useContext } from "react";
+import { NavLink, Outlet } from "react-router-dom";
 import { AuthContext } from "../AuthContextProvider";
 
 function Layout(props) {
@@ -10,19 +10,19 @@ function Layout(props) {
       <nav>
         {user ? (
           /* User connected */
-          <>
-            <Link to={"/"}> Accueil </Link>
+          <li>
+            <NavLink to={"/"}>Accueil</NavLink>
             {user.role === "admin" && (
-              <Link to={"/create/schedule"}> Horaires </Link>
+              <NavLink to={"/create/schedule"}>Horaires</NavLink>
             )}
-            <Link to={"/logout"}> Log Out </Link>
-          </>
+            <NavLink to={"/logout"}>Log Out</NavLink>
+          </li>
         ) : (
           /* NO user connected */
-          <>
-            <Link to={"/login"}> Log In </Link>
-            <Link to={"/signup"}> Sign Up</Link>
-          </>
+          <li>
+            <NavLink to={"/login"}>Log In</NavLink>
+            <NavLink to={"/signup"}>Sign Up</NavLink>
+          </li>
         )}
       </nav>
       <Outlet />

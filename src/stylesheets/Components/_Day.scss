@@ -1,0 +1,14 @@
+.Day {
+  background: $month1;
+
+  &.otherMonth {
+    background: $month2;
+  }
+
+  &.weekend {
+    background:$weekend;
+  }
+
+  &.today {
+  }
+}

@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -50,27 +54,87 @@ table {
   border-spacing: 0;
 }
 
+li {
+  list-style: none;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
 .Calendar {
-  width: 100%;
-  background: darkolivegreen;
+  width: 70%;
+  margin: 0 auto;
+  flex-basis: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.Calendar::after {
+  content: "";
+  height: 5%;
 }
 .Calendar .dateChoiceContainer {
   display: flex;
 }
 .Calendar .calendarTable {
-  width: 90%;
-  background: palevioletred;
+  width: 100%;
+  height: 100%;
 }
-.Calendar .otherMonth {
-  background: cornflowerblue;
+.Calendar tbody {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
-.Calendar .weekend {
-  background: antiquewhite;
+.Calendar tr {
+  flex-basis: 100%;
+  display: flex;
 }
 .Calendar td {
-  width: 14.2857142857%;
-  height: 15.8333333333vh;
-  border: 1px solid black;
+  border: 1px solid #b0b0b0;
+  flex-basis: 100%;
+}
+
+.Layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100vw;
+  height: 100vh;
+}
+.Layout nav {
+  width: 100%;
+  height: 3rem;
+  padding-left: 15%;
+  background: #C4C4C4;
+  display: flex;
+  align-items: center;
+}
+.Layout nav a {
+  margin-right: 80px;
+}
+.Layout nav .active {
+  text-decoration: underline;
+}
+
+.Day {
+  background: #cacaca;
+}
+.Day.otherMonth {
+  background: #a9a9a9;
+}
+.Day.weekend {
+  background: #e6e6e6;
+}
+.MonthChoice {
+  display: flex;
+  align-items: center;
+  margin: 1rem auto;
 }
 
 /*# sourceMappingURL=main.css.map */
