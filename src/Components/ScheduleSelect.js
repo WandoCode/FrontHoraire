@@ -55,7 +55,7 @@ function ScheduleSelect(props) {
         id="scheduleSelect"
       >
         <option disabled={true} value="default">
-          Select an option
+          Sélectionner un horaire
         </option>
         {options}
       </select>

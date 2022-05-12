@@ -41,7 +41,7 @@ function UpdateSchedule() {
   return (
     <div className="UpdateSchedule">
       <ScheduleSelect
-        labelText={"Choose a schedule"}
+        labelText={"Choisir un horaire"}
         getValue={getValue}
         defVal={selectValue}
       />

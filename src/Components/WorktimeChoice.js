@@ -89,7 +89,7 @@ function WorktimeChoice(props) {
 
   return (
     <form onSubmit={handleSubmitWorktime} className="WorktimeChoice">
-      <label htmlFor="startDate">Start</label>
+      <label htmlFor="startDate">Début</label>
       <input
         type="time"
         name="startDate"
@@ -98,7 +98,7 @@ function WorktimeChoice(props) {
         onChange={(e) => setStartDate(e.target.value)}
       />
 
-      <label htmlFor="endDate">End</label>
+      <label htmlFor="endDate">Fin</label>
       <input
         type="time"
         name="endDate"
@@ -107,7 +107,7 @@ function WorktimeChoice(props) {
         onChange={(e) => setEndDate(e.target.value)}
       />
 
-      <label htmlFor="breaktime">Break (min)</label>
+      <label htmlFor="breaktime">Pause (min)</label>
       <input
         type="number"
         name="breaktime"
@@ -116,7 +116,7 @@ function WorktimeChoice(props) {
         value={breakTime}
         onChange={(e) => setBreakTime(e.target.value)}
       />
-      <button type="submit">Change worktime</button>
+      <button type="submit">Modifier</button>
     </form>
   );
 }

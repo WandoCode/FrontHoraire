@@ -16,7 +16,7 @@ function ScheduleForm(props) {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [breakTime, setBreakTime] = useState(0);
-  const [warningsObj, setWarningsObj] = useState();
+  const [warningsObj, setWarningsObj] = useState({});
 
   //TODO: avoid submit if schedule to update has not changed
   //TODO: idem for new schedule with invalid datas (and for update)
@@ -31,91 +31,124 @@ function ScheduleForm(props) {
   }, [props]);
 
   // TODO: display errors on screen
-  useEffect(() => {
-    if (warningsObj) console.error(warningsObj);
-  }, [warningsObj]);
 
-  async function handleSubmit(e) {
+  async function handleUpdate(e) {
     e.preventDefault();
-
+    resetForm();
     try {
       if (!validInputs()) return; // TODO: need to be implemented
 
-      if (props.update) {
-        /* Update values */
-        let rep = await axios.put(
-          `${HOST}/schedule/put/${props.scheduleId}`,
-          {
-            name,
-            startDate: formatDateWithTime(startDate),
-            endDate: formatDateWithTime(endDate),
-            breakTime: breakTime,
-          },
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-      } else {
-        /* Post new values */
-        await axios.post(
-          `${HOST}/schedule/add`,
-          {
-            name,
-            startDate: formatDateWithTime(startDate),
-            endDate: formatDateWithTime(endDate),
-            breakTime: breakTime,
-          },
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-      }
+      /* Update values */
+      let rep = await axios.put(
+        `${HOST}/schedule/put/${props.scheduleId}`,
+        {
+          name,
+          startDate: formatDateWithTime(startDate),
+          endDate: formatDateWithTime(endDate),
+          breakTime: breakTime,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
     } catch (e) {
       const errorObject = formatErrors(e.response.data);
       setWarningsObj(errorObject);
     }
   }
 
+  const handleCreate = async (e) => {
+    e.preventDefault();
+    resetForm();
+    try {
+      if (!validInputs()) return; // TODO: need to be implemented
+
+      /* Post new values */
+      await axios.post(
+        `${HOST}/schedule/add`,
+        {
+          name,
+          startDate: formatDateWithTime(startDate),
+          endDate: formatDateWithTime(endDate),
+          breakTime: breakTime,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+    } catch (e) {
+      console.log(e.response);
+      const errorObject = formatErrors(e.response.data);
+      setWarningsObj(errorObject);
+    }
+  };
+
+  const resetForm = () => {
+    setWarningsObj({});
+    setName("");
+    setStartDate("");
+    setEndDate("");
+    setBreakTime(0);
+  };
+
   return (
-    <form className="ScheduleForm" action={""} onSubmit={handleSubmit}>
-      <label htmlFor="name">Name</label>
+    <form className="ScheduleForm form--dates" action={""}>
+      <label htmlFor="name">Nom</label>
       <input
         type="text"
         name="name"
         id="name"
+        className={warningsObj.name ? "error" : ""}
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
 
-      <label htmlFor="startDate">Start</label>
-      <input
-        type="time"
-        name="startDate"
-        id="startDate"
-        value={startDate}
-        onChange={(e) => setStartDate(e.target.value)}
-      />
-
-      <label htmlFor="endDate">End</label>
-      <input
-        type="time"
-        name="endDate"
-        id="endDate"
-        value={endDate}
-        onChange={(e) => setEndDate(e.target.value)}
-      />
-
-      <label htmlFor="breaktime">Break (min)</label>
+      <div className={"dates"}>
+        <div className="start">
+          <label htmlFor="startDate">Début</label>
+          <input
+            type="time"
+            name="startDate"
+            id="startDate"
+            className={
+              warningsObj.startDate || warningsObj.endDate ? "error" : ""
+            }
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+        </div>
+        <div className="end">
+          <label htmlFor="endDate">Fin</label>
+          <input
+            type="time"
+            name="endDate"
+            id="endDate"
+            className={
+              warningsObj.startDate || warningsObj.endDate ? "error" : ""
+            }
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+        </div>
+      </div>
+      <label htmlFor="breaktime">Pause (min)</label>
       <input
         type="number"
         name="breaktime"
         id="breaktime"
+        className={warningsObj.breakTime ? "error" : ""}
         min={0}
         value={breakTime}
         onChange={(e) => setBreakTime(e.target.value)}
       />
 
-      <button type="submit">Add</button>
+      {props.update ? (
+        <div className="btnsContainer">
+          <button onClick={handleUpdate}>Mettre à jour</button>
+        </div>
+      ) : (
+        <button onClick={handleCreate}>Créer</button>
+      )}
     </form>
   );
 }

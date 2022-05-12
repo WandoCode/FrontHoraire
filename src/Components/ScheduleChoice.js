@@ -86,21 +86,21 @@ function ScheduleChoice(props) {
       <div>
         {scheduleDatas && (
           <>
-            <h2>Schedule</h2>
-            <p>Name: {scheduleDatas.name}</p>
-            <p>start: {getTimeString(scheduleDatas.startDate)}</p>
-            <p>end: {getTimeString(scheduleDatas.endDate)}</p>
-            <p>Break: {scheduleDatas.breakTime} min</p>
+            <h2>Horaire</h2>
+            <p>Nom: {scheduleDatas.name}</p>
+            <p>Début: {getTimeString(scheduleDatas.startDate)}</p>
+            <p>Fin: {getTimeString(scheduleDatas.endDate)}</p>
+            <p>Pause: {scheduleDatas.breakTime} min</p>
           </>
         )}
       </div>
       <form onSubmit={handleSubmitSchedule}>
         <ScheduleSelect
-          labelText={"Choose a schedule"}
+          labelText={"Choisir un horaire"}
           getValue={getValue}
           defVal={selectValue}
         />
-        <button type="submit">Change</button>
+        <button type="submit">Choisir</button>
       </form>
     </div>
   );

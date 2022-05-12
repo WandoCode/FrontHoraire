@@ -30,11 +30,15 @@ function DayDetails() {
 
   return (
     <div className="DayDetails">
-      <h2>{getDateStringLocal(year, monthIndex, day)}</h2>
-      <ScheduleChoice year={year} monthIndex={monthIndex} day={day} />
-      <WorktimeChoice year={year} monthIndex={monthIndex} day={day} />
-      <button onClick={handlePrecDay}>Avant</button>
-      <button onClick={handleNextDay}>Après</button>
+      <div className="btnsContainer">
+        <button onClick={handlePrecDay}>Avant</button>
+        <h2>{getDateStringLocal(year, monthIndex, day)}</h2>
+        <button onClick={handleNextDay}>Après</button>
+      </div>
+      <div className="formContainer">
+        <ScheduleChoice year={year} monthIndex={monthIndex} day={day} />
+        <WorktimeChoice year={year} monthIndex={monthIndex} day={day} />
+      </div>
     </div>
   );
 }
@@ -75,3 +79,7 @@ const precDay = (year, monthIndex, day) => {
 };
 
 export default DayDetails;
+
+// TODO: Styliser le h2 horaire
+// TODO: Préciser qu'à droite il s'agit des horaires et surtout qu'à gause il s'agit du temps de travail
+// TODO Ajouter une confirmation de succés ou d'erreur à l'envoi d'un formulaire

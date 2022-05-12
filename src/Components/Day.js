@@ -63,43 +63,49 @@ function Day(props) {
 
   return (
     <td className={classname} onClick={handleClick}>
-      {props.day}
-
-      {scheduleDatas ? (
-        <div>
-          <div>{getTimeString(scheduleDatas.startDate)}</div>
-          <div>{getTimeString(scheduleDatas.endDate)}</div>
-          <div>({scheduleDatas.breakTime})</div>
+      <h3>{props.day}</h3>
+      <div className={"dayContainer"}>
+        <div className={"schedule leftDay"}>
+          {scheduleDatas ? (
+            <>
+              <div>{getTimeString(scheduleDatas.startDate)}</div>
+              <div>{getTimeString(scheduleDatas.endDate)}</div>
+              <div>({scheduleDatas.breakTime})</div>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
-      ) : (
-        <></>
-      )}
 
-      {worktimeDatas ? (
-        <div>
-          <div>{getTimeString(worktimeDatas.startDate)}</div>
-          <div>{getTimeString(worktimeDatas.endDate)}</div>
-          <div>({worktimeDatas.breakTime})</div>
+        <div className={"schedule rightDay"}>
+          {worktimeDatas ? (
+            <>
+              <div>{getTimeString(worktimeDatas.startDate)}</div>
+              <div>{getTimeString(worktimeDatas.endDate)}</div>
+              <div>({worktimeDatas.breakTime})</div>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
-      ) : (
-        <></>
-      )}
+      </div>
     </td>
   );
 }
 
 const constructClass = (currentMonth, weekend, today) => {
   let classname = "Day";
-  console.log(today);
-  if (weekend) {
-    classname += " weekend";
+
+  if (currentMonth) {
+    if (weekend) classname += " weekend";
+  } else {
+    classname += " otherMonth";
   }
+
   if (today) {
     classname += " today";
     return classname;
   }
-
-  currentMonth ? (classname += " currentMonth") : (classname += " otherMonth");
 
   return classname;
 };

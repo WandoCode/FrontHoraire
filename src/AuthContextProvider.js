@@ -75,7 +75,7 @@ function AuthContextProvider({ children }) {
   );
 }
 
-// Componenet check if a user exists and is logged in
+// Component check if a user exists and is logged in
 function RequireAuth({ children }) {
   let { user } = useContext(AuthContext);
   // No user found: redirect

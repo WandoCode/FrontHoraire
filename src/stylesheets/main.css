@@ -67,6 +67,63 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 1em 2em;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 1rem;
+  color: #564949;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5% 0 20% 0;
+  min-width: 20%;
+  position: relative;
+}
+form input {
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+  border: none;
+  background: #c4c0c0;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+}
+form .error {
+  outline: red 1px solid;
+}
+form.form--dates .dates {
+  display: flex;
+}
+form.form--dates .dates div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+select {
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+  border: none;
+  background: #c4c0c0;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+}
+select option {
+  background: white;
+}
+
 .Calendar {
   width: 70%;
   margin: 0 auto;
@@ -95,7 +152,7 @@ body {
   display: flex;
 }
 .Calendar td {
-  border: 1px solid #b0b0b0;
+  border: 1px solid #ffffff;
   flex-basis: 100%;
 }
 
@@ -124,6 +181,13 @@ body {
 
 .Day {
   background: #cacaca;
+  display: flex;
+  flex-direction: column;
+  color: #242323;
+  overflow: hidden;
+}
+.Day h3 {
+  margin: 0.5rem;
 }
 .Day.otherMonth {
   background: #a9a9a9;
@@ -131,10 +195,86 @@ body {
 .Day.weekend {
   background: #e6e6e6;
 }
+.Day .dayContainer {
+  flex-basis: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.Day .leftDay {
+  min-width: 20%;
+}
+.Day .rightDay {
+  min-width: 20%;
+}
+
 .MonthChoice {
   display: flex;
   align-items: center;
   margin: 1rem auto;
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.ManageSchedule {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  width: 50%;
+}
+.ManageSchedule form {
+  margin: 20% 0 0 0;
+}
+
+.DayDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+}
+.DayDetails .formContainer {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+.DayDetails .formContainer form {
+  margin: 0;
+}
+.DayDetails .btnsContainer {
+  margin: 2rem 0;
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.DayDetails .btnsContainer button {
+  margin: 0;
+}
+
+.ScheduleChoice {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.ScheduleChoice div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.UpdateSchedule {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.ScheduleSelect {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /*# sourceMappingURL=main.css.map */

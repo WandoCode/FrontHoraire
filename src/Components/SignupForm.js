@@ -35,7 +35,7 @@ function SignupForm() {
 
   return (
     <form className="SignupForm" action="" onSubmit={handleSubmit}>
-      <label htmlFor="username">Username</label>
+      <label htmlFor="username">Nom d'utilisateur</label>
       <input
         type="text"
         name="username"
@@ -43,7 +43,7 @@ function SignupForm() {
         onChange={(e) => setUsername(e.target.value)}
         value={username}
       />
-      <label htmlFor="password">Password</label>
+      <label htmlFor="password">Mot de passe</label>
       <input
         type="password"
         name="password"
@@ -51,7 +51,7 @@ function SignupForm() {
         onChange={(e) => setPassword(e.target.value)}
         value={password}
       />
-      <label htmlFor="password-confirmation">Confirm password</label>
+      <label htmlFor="password-confirmation">Confirmer mot de passe</label>
       <input
         type="password"
         name="password-confirmation"
@@ -59,9 +59,10 @@ function SignupForm() {
         onChange={(e) => setConfPassword(e.target.value)}
         value={confPassword}
       />
-      <button type="submit">Create account</button>
+      <button type="submit">S'inscrire</button>
     </form>
   );
 }
 
+// TODO Ajouter une confirmation de succés ou d'erreur à l'envoi d'un formulaire
 export default SignupForm;

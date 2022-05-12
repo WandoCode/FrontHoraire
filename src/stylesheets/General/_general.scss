@@ -1,3 +1,70 @@
 body {
   font-family: 'Poppins', sans-serif;
 }
+
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 1em 2em;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 1rem;
+
+  color: $btn-font1;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5% 0 20% 0;
+  min-width: 20%;
+  position: relative;
+
+  & input {
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    border: none;
+    background: $bk-input;
+    font-size: 16px;
+    font-family: "Poppins", sans-serif;
+
+
+  }
+
+  & .error {
+    outline: red 1px solid;
+  }
+
+  &.form--dates {
+    .dates {
+      display: flex;
+
+      & div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 1rem;
+      }
+    }
+  }
+}
+
+select {
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+  border: none;
+  background: $bk-input;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+
+  & option {
+    background: white;
+  }
+}

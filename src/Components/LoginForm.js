@@ -32,7 +32,7 @@ function LoginForm() {
   };
   return (
     <form className="login-form" action="" onSubmit={handleSubmit}>
-      <label htmlFor="username">Username</label>
+      <label htmlFor="username">Nom d'utilisateur</label>
       <input
         type="text"
         name="username"
@@ -41,7 +41,7 @@ function LoginForm() {
         onChange={(e) => setUsername(e.target.value)}
         value={username}
       />
-      <label htmlFor="password">Password</label>
+      <label htmlFor="password">Mot de passe</label>
       <input
         type="password"
         name="password"
@@ -50,9 +50,10 @@ function LoginForm() {
         onChange={(e) => setPassword(e.target.value)}
         value={password}
       />
-      <button type="submit">Log in</button>
+      <button type="submit">Connexion</button>
     </form>
   );
 }
 
+// TODO Ajouter une confirmation de succés ou d'erreur à l'envoi d'un formulaire
 export default LoginForm;

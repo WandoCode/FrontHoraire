@@ -15,13 +15,13 @@ function Layout(props) {
             {user.role === "admin" && (
               <NavLink to={"/create/schedule"}>Horaires</NavLink>
             )}
-            <NavLink to={"/logout"}>Log Out</NavLink>
+            <NavLink to={"/logout"}>Déconnexion</NavLink>
           </li>
         ) : (
           /* NO user connected */
           <li>
-            <NavLink to={"/login"}>Log In</NavLink>
-            <NavLink to={"/signup"}>Sign Up</NavLink>
+            <NavLink to={"/login"}>Connexion</NavLink>
+            <NavLink to={"/signup"}>Inscription</NavLink>
           </li>
         )}
       </nav>

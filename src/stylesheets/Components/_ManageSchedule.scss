@@ -1,0 +1,10 @@
+.ManageSchedule {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  width: 50%;
+
+  & form {
+    margin: 20% 0 0 0;
+  }
+}
