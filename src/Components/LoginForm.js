@@ -11,13 +11,8 @@ function LoginForm() {
   const { signIn } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [warningsObj, setWarningsObj] = useState();
+  const [warningsObj, setWarningsObj] = useState({});
   const navigate = useNavigate();
-
-  // TODO: display errors on screen
-  useEffect(() => {
-    if (warningsObj) console.error(warningsObj);
-  }, [warningsObj]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,30 +25,40 @@ function LoginForm() {
       setWarningsObj(errorObject);
     }
   };
+
   return (
     <form className="login-form" action="" onSubmit={handleSubmit}>
-      <label htmlFor="username">Nom d'utilisateur</label>
-      <input
-        type="text"
-        name="username"
-        id="username"
-        autoComplete="username"
-        onChange={(e) => setUsername(e.target.value)}
-        value={username}
-      />
-      <label htmlFor="password">Mot de passe</label>
-      <input
-        type="password"
-        name="password"
-        id="password"
-        autoComplete="password"
-        onChange={(e) => setPassword(e.target.value)}
-        value={password}
-      />
+      <div className="input-container">
+        <label htmlFor="username">Nom d'utilisateur</label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          autoComplete="username"
+          onChange={(e) => setUsername(e.target.value)}
+          value={username}
+        />
+        {warningsObj.username && (
+          <div className="error">5-20 caractères: A-Z 1-9</div>
+        )}
+      </div>
+      <div className="input-container">
+        <label htmlFor="password">Mot de passe</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          autoComplete="password"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+        />
+        {warningsObj.password && (
+          <div className="error">8-20 caractères: A-Z 1-9</div>
+        )}
+      </div>
       <button type="submit">Connexion</button>
     </form>
   );
 }
 
-// TODO Ajouter une confirmation de succés ou d'erreur à l'envoi d'un formulaire
 export default LoginForm;

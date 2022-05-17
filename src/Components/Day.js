@@ -26,11 +26,7 @@ function Day(props) {
   );
 
   useEffect(() => {
-    if (warningsObj) console.error(warningsObj);
-  }, [warningsObj]);
-
-  useEffect(() => {
-    // Load schedule and wortime details
+    // Load schedule and worktime details
     const getDayDatas = async () => {
       try {
         let schedule = await getScheduleDetailsFromCalendar(

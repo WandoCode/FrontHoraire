@@ -23,11 +23,7 @@ function WorktimeChoice(props) {
   const [endDate, setEndDate] = useState("");
   const [breakTime, setBreakTime] = useState(0);
   const dateString = getDateStringISO(year, monthIndex, day);
-  const [warningsObj, setWarningsObj] = useState();
-
-  useEffect(() => {
-    if (warningsObj) console.error(warningsObj);
-  }, [warningsObj]);
+  const [warningsObj, setWarningsObj] = useState({});
 
   useEffect(() => {
     // Reset value if date change
@@ -66,7 +62,7 @@ function WorktimeChoice(props) {
   const handleSubmitWorktime = async (e) => {
     e.preventDefault();
     // TODO: need to implement validation
-    if (!startDate || !endDate) return;
+
     try {
       let rep = await axios.post(
         `${HOST}/users/${user._id}/calendar/add/worktime`,
@@ -89,33 +85,40 @@ function WorktimeChoice(props) {
 
   return (
     <form onSubmit={handleSubmitWorktime} className="WorktimeChoice">
-      <label htmlFor="startDate">Début</label>
-      <input
-        type="time"
-        name="startDate"
-        id="startDate"
-        value={startDate}
-        onChange={(e) => setStartDate(e.target.value)}
-      />
-
-      <label htmlFor="endDate">Fin</label>
-      <input
-        type="time"
-        name="endDate"
-        id="endDate"
-        value={endDate}
-        onChange={(e) => setEndDate(e.target.value)}
-      />
-
-      <label htmlFor="breaktime">Pause (min)</label>
-      <input
-        type="number"
-        name="breaktime"
-        id="breaktime"
-        min={0}
-        value={breakTime}
-        onChange={(e) => setBreakTime(e.target.value)}
-      />
+      <div className="double-input">
+        <div className="input-container">
+          <label htmlFor="startDate">Début</label>
+          <input
+            type="time"
+            name="startDate"
+            id="startDate"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+          {warningsObj.startDate && <div className="error">Obligatoire</div>}
+        </div>
+        <div className="input-container">
+          <label htmlFor="endDate">Fin</label>
+          <input
+            type="time"
+            name="endDate"
+            id="endDate"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+        </div>
+      </div>
+      <div className="input-container">
+        <label htmlFor="breaktime">Pause (min)</label>
+        <input
+          type="number"
+          name="breaktime"
+          id="breaktime"
+          min={0}
+          value={breakTime}
+          onChange={(e) => setBreakTime(e.target.value)}
+        />
+      </div>
       <button type="submit">Modifier</button>
     </form>
   );

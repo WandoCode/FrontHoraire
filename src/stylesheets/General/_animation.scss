@@ -1,0 +1,31 @@
+@keyframes loading-screen {
+  0% {
+    visibility: visible;
+    opacity: 100%;
+  }
+  30% {
+    opacity: 100%;
+  }
+  100% {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+@keyframes circle {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

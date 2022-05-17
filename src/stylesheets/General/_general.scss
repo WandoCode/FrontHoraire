@@ -1,70 +1,109 @@
 body {
   font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+
+  @media (max-width: 950px) {
+    font-size: 15px;
+  }
+}
+
+a {
+  color: $text-nav;
+  text-decoration: none;
+}
+
+form {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  .input-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    width: 100%;
+
+    & .error {
+      position: absolute;
+      bottom: -1rem;
+      left: 0;
+      color: red;
+      font-size: 13px;
+    }
+  }
+
+  & .double-input .input-container:nth-child(2) {
+    margin-left: 1rem;
+  }
+
+  & label {
+    margin-bottom: 1rem;
+  }
+
+  & input {
+    font-family: inherit;
+    font-size: inherit;
+    border: none;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    outline: none;
+    width: 100%;
+    background-color: $bk-input;
+  }
+
+  & .double-input {
+    display: flex;
+    justify-content: center;
+  }
+
 }
 
 button {
   border: none;
-  border-radius: 8px;
-  padding: 1em 2em;
-  font-size: 16px;
-  font-weight: bold;
-  margin-top: 1rem;
+  border-radius: 13px;
+  font-size: 20px;
+  padding: 0.8rem 1.3rem;
+  margin: 1rem auto;
+  background: $color-primary;
+  transition: 0.2s;
 
-  color: $btn-font1;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 5% 0 20% 0;
-  min-width: 20%;
-  position: relative;
-
-  & input {
-    margin-top: 0.5rem;
-    margin-bottom: 1.5rem;
-    width: 100%;
-    padding: 0.5rem 1rem;
-    border-radius: 15px;
-    border: none;
-    background: $bk-input;
-    font-size: 16px;
-    font-family: "Poppins", sans-serif;
-
-
+  &:hover {
+    cursor: pointer;
+    background: darken($color-primary, 30);
+    color: lighten($btn-font1, 60);
+    transition: 0.2s;
   }
 
-  & .error {
-    outline: red 1px solid;
+  &.no-marge {
+    margin: 0;
   }
 
-  &.form--dates {
-    .dates {
-      display: flex;
+  &.light {
+    border: 1px solid black;
+    background: lighten($color-primary, 60);
+    color: darken($btn-font1, 10);
+    font-size: 17px;
 
-      & div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 0 1rem;
-      }
+    &:hover {
+      cursor: pointer;
+      background: lighten($color-primary, 10);
+      color: darken($btn-font1, 10);
+      transition: 0.2s;
     }
   }
+
 }
 
-select {
-  margin-top: 0.5rem;
-  margin-bottom: 1.5rem;
-  width: 100%;
-  padding: 0.5rem 1rem;
-  border-radius: 15px;
-  border: none;
-  background: $bk-input;
-  font-size: 16px;
-  font-family: "Poppins", sans-serif;
+h2 {
+  text-align: center;
+  font-size: 25px;
+  margin: 2rem 0;
+  white-space: nowrap;
 
-  & option {
-    background: white;
+  &.no-marge {
+    margin: 0;
   }
 }

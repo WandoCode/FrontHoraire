@@ -31,13 +31,26 @@ function DayDetails() {
   return (
     <div className="DayDetails">
       <div className="btnsContainer">
-        <button onClick={handlePrecDay}>Avant</button>
-        <h2>{getDateStringLocal(year, monthIndex, day)}</h2>
-        <button onClick={handleNextDay}>Après</button>
+        <button className={"no-marge light"} onClick={handlePrecDay}>
+          Avant
+        </button>
+        <h2 className={"no-marge"}>
+          {getDateStringLocal(year, monthIndex, day)}
+        </h2>
+        <button className={"no-marge light"} onClick={handleNextDay}>
+          Après
+        </button>
       </div>
-      <div className="formContainer">
-        <ScheduleChoice year={year} monthIndex={monthIndex} day={day} />
-        <WorktimeChoice year={year} monthIndex={monthIndex} day={day} />
+      <div className="formContainer split">
+        <div className="left">
+          <h2>Horaire</h2>
+
+          <ScheduleChoice year={year} monthIndex={monthIndex} day={day} />
+        </div>
+        <div className="right">
+          <h2>Temps de travail</h2>
+          <WorktimeChoice year={year} monthIndex={monthIndex} day={day} />
+        </div>
       </div>
     </div>
   );
@@ -79,7 +92,3 @@ const precDay = (year, monthIndex, day) => {
 };
 
 export default DayDetails;
-
-// TODO: Styliser le h2 horaire
-// TODO: Préciser qu'à droite il s'agit des horaires et surtout qu'à gause il s'agit du temps de travail
-// TODO Ajouter une confirmation de succés ou d'erreur à l'envoi d'un formulaire

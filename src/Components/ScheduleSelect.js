@@ -18,9 +18,6 @@ function ScheduleSelect(props) {
   }, [defaultVal]);
 
   // TODO: display errors on screen
-  useEffect(() => {
-    if (warningsObj) console.error(warningsObj);
-  }, [warningsObj]);
 
   useEffect(() => {
     const loadSchedules = async () => {
@@ -47,18 +44,20 @@ function ScheduleSelect(props) {
 
   return (
     <div className="ScheduleSelect">
-      <label htmlFor="scheduleSelect">{props.labelText}:</label>
-      <select
-        value={selectInput}
-        onChange={(e) => handleInput(e)}
-        name="scheduleSelect"
-        id="scheduleSelect"
-      >
-        <option disabled={true} value="default">
-          Sélectionner un horaire
-        </option>
-        {options}
-      </select>
+      <div className="input-container">
+        <label htmlFor="scheduleSelect">{props.labelText}</label>
+        <select
+          value={selectInput}
+          onChange={(e) => handleInput(e)}
+          name="scheduleSelect"
+          id="scheduleSelect"
+        >
+          <option disabled={true} value="default">
+            Sélectionner un horaire
+          </option>
+          {options}
+        </select>
+      </div>
     </div>
   );
 }

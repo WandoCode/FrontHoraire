@@ -83,17 +83,16 @@ function ScheduleChoice(props) {
 
   return (
     <div className="ScheduleChoice">
-      <div>
-        {scheduleDatas && (
-          <>
-            <h2>Horaire</h2>
+      {scheduleDatas && (
+        <>
+          <div className="details-container">
             <p>Nom: {scheduleDatas.name}</p>
             <p>Début: {getTimeString(scheduleDatas.startDate)}</p>
             <p>Fin: {getTimeString(scheduleDatas.endDate)}</p>
             <p>Pause: {scheduleDatas.breakTime} min</p>
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      )}
       <form onSubmit={handleSubmitSchedule}>
         <ScheduleSelect
           labelText={"Choisir un horaire"}

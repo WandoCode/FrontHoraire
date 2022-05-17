@@ -58,89 +58,172 @@ li {
   list-style: none;
 }
 
+@keyframes loading-screen {
+  0% {
+    visibility: visible;
+    opacity: 100%;
+  }
+  30% {
+    opacity: 100%;
+  }
+  100% {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+@keyframes circle {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+body {
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+}
+@media (max-width: 950px) {
+  body {
+    font-size: 15px;
+  }
+}
+
 a {
-  color: black;
+  color: #cacbce;
   text-decoration: none;
 }
 
-body {
-  font-family: "Poppins", sans-serif;
+form {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+form .input-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+form .input-container .error {
+  position: absolute;
+  bottom: -1rem;
+  left: 0;
+  color: red;
+  font-size: 13px;
+}
+form .double-input .input-container:nth-child(2) {
+  margin-left: 1rem;
+}
+form label {
+  margin-bottom: 1rem;
+}
+form input {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  outline: none;
+  width: 100%;
+  background-color: #fafbf2;
+}
+form .double-input {
+  display: flex;
+  justify-content: center;
 }
 
 button {
   border: none;
-  border-radius: 8px;
-  padding: 1em 2em;
-  font-size: 16px;
-  font-weight: bold;
-  margin-top: 1rem;
-  color: #564949;
+  border-radius: 13px;
+  font-size: 20px;
+  padding: 0.8rem 1.3rem;
+  margin: 1rem auto;
+  background: #7CA653;
+  transition: 0.2s;
 }
-
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 5% 0 20% 0;
-  min-width: 20%;
-  position: relative;
+button:hover {
+  cursor: pointer;
+  background: #304020;
+  color: #eae7e7;
+  transition: 0.2s;
 }
-form input {
-  margin-top: 0.5rem;
-  margin-bottom: 1.5rem;
-  width: 100%;
-  padding: 0.5rem 1rem;
-  border-radius: 15px;
-  border: none;
-  background: #c4c0c0;
-  font-size: 16px;
-  font-family: "Poppins", sans-serif;
+button.no-marge {
+  margin: 0;
 }
-form .error {
-  outline: red 1px solid;
-}
-form.form--dates .dates {
-  display: flex;
-}
-form.form--dates .dates div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 1rem;
-}
-
-select {
-  margin-top: 0.5rem;
-  margin-bottom: 1.5rem;
-  width: 100%;
-  padding: 0.5rem 1rem;
-  border-radius: 15px;
-  border: none;
-  background: #c4c0c0;
-  font-size: 16px;
-  font-family: "Poppins", sans-serif;
-}
-select option {
+button.light {
+  border: 1px solid black;
   background: white;
+  color: #3a3232;
+  font-size: 17px;
+}
+button.light:hover {
+  cursor: pointer;
+  background: #96b973;
+  color: #3a3232;
+  transition: 0.2s;
+}
+
+h2 {
+  text-align: center;
+  font-size: 25px;
+  margin: 2rem 0;
+  white-space: nowrap;
+}
+h2.no-marge {
+  margin: 0;
 }
 
 .Calendar {
-  width: 70%;
-  margin: 0 auto;
-  flex-basis: 100%;
+  width: 100%;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
-.Calendar::after {
-  content: "";
-  height: 5%;
-}
-.Calendar .dateChoiceContainer {
+.Calendar .loading-screen {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  background-color: #323C59;
+  height: 100vh;
+  width: 100vw;
+  z-index: 2;
+  animation: loading-screen 2s ease-in;
+  animation-fill-mode: forwards;
 }
-.Calendar .calendarTable {
-  width: 100%;
+.Calendar .loading-screen img {
+  max-width: 100px;
+  height: auto;
+  animation: circle 2s linear;
+}
+.Calendar .MonthChoice {
+  font-size: 25px;
+  font-weight: 500;
+  min-width: 20%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.Calendar table {
+  width: 70%;
   height: 100%;
+  flex-grow: 1;
+  margin-bottom: 5rem;
 }
 .Calendar tbody {
   height: 100%;
@@ -152,129 +235,192 @@ select option {
   display: flex;
 }
 .Calendar td {
-  border: 1px solid #ffffff;
   flex-basis: 100%;
+  border: 1px solid #ffffff;
+}
+@media (max-width: 950px) {
+  .Calendar td {
+    font-size: 12px;
+  }
 }
 
 .Layout {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  background: #F2F2E4;
+}
+.Layout .burger {
+  display: none;
+}
+@media (max-width: 950px) {
+  .Layout .burger {
+    align-self: flex-start;
+    display: inline-block;
+    z-index: 1;
+  }
 }
 .Layout nav {
   width: 100%;
-  height: 3rem;
+  min-height: 3rem;
   padding-left: 15%;
-  background: #C4C4C4;
+  margin-bottom: 2rem;
+  background: #323C59;
   display: flex;
   align-items: center;
 }
+.Layout nav ul {
+  width: 100%;
+  display: flex;
+}
 .Layout nav a {
-  margin-right: 80px;
+  margin-right: 7.4rem;
 }
 .Layout nav .active {
-  text-decoration: underline;
+  font-weight: 300;
+  color: white;
+}
+.Layout nav.small {
+  display: block;
+  position: absolute;
+  padding: 15px;
+  width: 100%;
+}
+@media (max-width: 950px) {
+  .Layout nav {
+    position: absolute;
+    display: none;
+    width: max-content;
+    height: 20%;
+    padding: 0;
+  }
+  .Layout nav ul {
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+  .Layout nav a {
+    margin-right: 0;
+  }
 }
 
 .Day {
-  background: #cacaca;
+  font-size: 15px;
   display: flex;
   flex-direction: column;
-  color: #242323;
-  overflow: hidden;
+  background: #7CA653;
+  transition: background-color 0.15s ease-in;
+}
+.Day:hover {
+  transform: scale(1.015);
+  background: #6f954b;
 }
 .Day h3 {
   margin: 0.5rem;
 }
 .Day.otherMonth {
-  background: #a9a9a9;
+  background: #9eaa92;
 }
 .Day.weekend {
-  background: #e6e6e6;
+  background: #4b6a2c;
+}
+.Day.weekend:hover {
+  transform: scale(1.015);
+  background: #3e5825;
 }
 .Day .dayContainer {
-  flex-basis: 100%;
+  margin: auto 0;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
 }
-.Day .leftDay {
-  min-width: 20%;
+.Day .schedule {
+  width: 50%;
+  margin: auto;
+  padding: 5%;
+  text-align: center;
+  line-height: 1.5rem;
 }
-.Day .rightDay {
-  min-width: 20%;
-}
-
-.MonthChoice {
-  display: flex;
-  align-items: center;
-  margin: 1rem auto;
-  font-size: 25px;
+.Day h3 {
   font-weight: 500;
+  margin: 0.5rem 0 0 0.5rem;
 }
 
-.ManageSchedule {
+.split {
   display: flex;
-  align-items: flex-end;
   justify-content: space-around;
   width: 50%;
 }
-.ManageSchedule form {
-  margin: 20% 0 0 0;
+.split .right, .split .left {
+  height: 650px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.split .left h2 {
+  margin-bottom: 1rem;
+}
+@media (max-width: 950px) {
+  .split {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .split .left {
+    border-bottom: 1px black solid;
+  }
+  .split .left h2 {
+    margin-bottom: 0;
+  }
+  .split .right, .split .left {
+    height: 550px;
+  }
 }
 
 .DayDetails {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 50%;
-}
-.DayDetails .formContainer {
   width: 100%;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-around;
-}
-.DayDetails .formContainer form {
-  margin: 0;
 }
 .DayDetails .btnsContainer {
-  margin: 2rem 0;
-  width: 40%;
+  margin-top: 2rem;
+  width: 50%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
 }
-.DayDetails .btnsContainer button {
-  margin: 0;
-}
-
-.ScheduleChoice {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-.ScheduleChoice div {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+@media (max-width: 950px) {
+  .DayDetails .btnsContainer {
+    width: 90%;
+  }
 }
 
-.UpdateSchedule {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+.ScheduleChoice .details-container p {
+  margin: 2rem;
 }
 
-.ScheduleSelect {
+.ScheduleSelect .input-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 1.5rem;
+}
+.ScheduleSelect select {
+  background: #fafbf2;
+  font-size: inherit;
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  outline: none;
+  width: 100%;
+  margin-top: 1rem;
+}
+.ScheduleSelect label {
+  margin-top: 1rem;
+}
+.ScheduleSelect option {
+  background: #fafbf2;
 }
 
 /*# sourceMappingURL=main.css.map */

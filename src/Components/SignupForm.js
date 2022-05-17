@@ -16,9 +16,6 @@ function SignupForm() {
   const navigate = useNavigate();
 
   // TODO: display errors on screen
-  useEffect(() => {
-    if (warningsArray.length > 0) console.error(warningsArray);
-  }, [warningsArray]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,34 +32,40 @@ function SignupForm() {
 
   return (
     <form className="SignupForm" action="" onSubmit={handleSubmit}>
-      <label htmlFor="username">Nom d'utilisateur</label>
-      <input
-        type="text"
-        name="username"
-        id="username"
-        onChange={(e) => setUsername(e.target.value)}
-        value={username}
-      />
-      <label htmlFor="password">Mot de passe</label>
-      <input
-        type="password"
-        name="password"
-        id="password"
-        onChange={(e) => setPassword(e.target.value)}
-        value={password}
-      />
-      <label htmlFor="password-confirmation">Confirmer mot de passe</label>
-      <input
-        type="password"
-        name="password-confirmation"
-        id="password-confirmation"
-        onChange={(e) => setConfPassword(e.target.value)}
-        value={confPassword}
-      />
+      <div className="input-container">
+        <label htmlFor="username">Nom d'utilisateur</label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          onChange={(e) => setUsername(e.target.value)}
+          value={username}
+        />
+      </div>
+      <div className="input-container">
+        <label htmlFor="password">Mot de passe</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+        />
+      </div>
+      <div className="input-container">
+        <label htmlFor="password-confirmation">Confirmer mot de passe</label>
+        <input
+          type="password"
+          name="password-confirmation"
+          id="password-confirmation"
+          onChange={(e) => setConfPassword(e.target.value)}
+          value={confPassword}
+        />
+      </div>
       <button type="submit">S'inscrire</button>
     </form>
   );
 }
 
-// TODO Ajouter une confirmation de succés ou d'erreur à l'envoi d'un formulaire
+// TODO Ajouter une confirmation de succès ou d'erreur à l'envoi d'un formulaire
 export default SignupForm;

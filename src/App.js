@@ -60,6 +60,4 @@ function App() {
   );
 }
 
-// TODO: Ajouter un Titre à l'application (dans la Navbar)
-// TODO: REFAIRE les test de l'API!!!
 export default App;

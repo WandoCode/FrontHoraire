@@ -1,9 +1,14 @@
 .Day {
-  background: $month1;
+  font-size: 15px;
   display: flex;
   flex-direction: column;
-  color: $text-color1;
-  overflow: hidden;
+  background: $month1;
+  transition: background-color 0.15s ease-in;
+
+  &:hover {
+    transform: scale(1.015);
+    background: darken($month1, 5);
+  }
 
   & h3 {
     margin: 0.5rem;
@@ -15,26 +20,28 @@
 
   &.weekend {
     background: $weekend;
-  }
 
-  &.today {
+    &:hover {
+      transform: scale(1.015);
+      background: darken($weekend, 5);
+    }
   }
 
   & .dayContainer {
-    flex-basis: 100%;
-
+    margin: auto 0;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
   }
 
-
-  & .leftDay {
-    min-width: 20%;
+  & .schedule {
+    width: 50%;
+    margin: auto;
+    padding: 5%;
+    text-align: center;
+    line-height: 1.5rem;
   }
 
-  & .rightDay {
-    min-width: 20%;
-
+  & h3 {
+    font-weight: 500;
+    margin: 0.5rem 0 0 0.5rem;
   }
 }

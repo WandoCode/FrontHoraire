@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Day from "./Day";
 import uniqid from "uniqid";
-
+import circle from "../static/img/circle";
 import MonthChoice from "./MonthChoice";
 import { calendar } from "../helpers/calendar";
 
@@ -21,6 +21,11 @@ function Calendar() {
 
   return (
     <div className="Calendar">
+      <div className="loading-screen">
+        <div className="loader-wrapper">
+          <img src={circle} alt="loading icon" />
+        </div>
+      </div>
       <MonthChoice
         year={year}
         monthIndex={monthIndex}

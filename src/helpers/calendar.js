@@ -44,7 +44,6 @@ const calendar = {
     }
     //  Current month's days
     const now = new Date(Date.now());
-    console.log(now);
     for (let i = 0; i < nbrDaysInMonth; i++) {
       monthArray.push({
         day: i + 1,
